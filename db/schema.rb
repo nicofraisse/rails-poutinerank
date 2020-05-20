@@ -15,31 +15,26 @@ ActiveRecord::Schema.define(version: 2020_05_20_013436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "poutines", force: :cascade do |t|
-    t.string "category"
-    t.integer "price"
-    t.bigint "restaurant_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["restaurant_id"], name: "index_poutines_on_restaurant_id"
-  end
-
   create_table "restaurants", force: :cascade do |t|
+    t.string "name"
     t.string "category"
     t.string "address"
+    t.integer "price_index"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.bigint "poutine_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "restaurant_id", null: false
     t.integer "rating"
     t.string "title"
     t.text "body"
+    t.string "language"
+    t.integer "upvotes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["poutine_id"], name: "index_reviews_on_poutine_id"
+    t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
@@ -58,7 +53,6 @@ ActiveRecord::Schema.define(version: 2020_05_20_013436) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "poutines", "restaurants"
-  add_foreign_key "reviews", "poutines"
+  add_foreign_key "reviews", "restaurants"
   add_foreign_key "reviews", "users"
 end

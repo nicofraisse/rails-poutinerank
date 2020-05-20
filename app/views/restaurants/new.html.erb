@@ -1,0 +1,10 @@
+<%= simple_form_for @restaurant do |f| %>
+  <%= f.input :name %>
+  <%= f.input :address %>
+  <%= f.input :category %>
+  <%= f.input :price_index %>
+  <%= f.submit "Create Restaurant", class: "btn btn-primary" %>
+  <%= link_to "Cancel", root_path, class: "btn btn-warning" %>
+
+
+<% end %>

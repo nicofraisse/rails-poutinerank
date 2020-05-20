@@ -1,2 +1,13 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Home</h1>
+<p>Wanna rate a poutine?</p>
+
+<h2>Restaurants</h2>
+<ul>
+<% @restaurants.each do |restaurant| %>
+  <li>
+    <%= link_to restaurant.name, restaurant_path(restaurant) %>
+  </li>
+<% end %>
+</ul>
+
+<%= link_to 'Create a restaurant', new_restaurant_path %>
