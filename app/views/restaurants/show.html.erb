@@ -2,27 +2,32 @@
 
 <h2>name: <%= @restaurant.name %></h2>
 <div>id: <%= @restaurant.id %></div>
-<div>category: <%= @restaurant.category %></div>
+<div>category: <%= @restaurant.restaurant_category.name %></div>
 <div>price_index: <%= @restaurant.price_index %></div>
 <div>address: <%= @restaurant.address %></div>
+<%= link_to 'Delete', restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
 <br>
 
-<h3>Ratings</h3>
+<h3>Reviews</h3>
 
+<div id="reviews">
 <% if @reviews.blank? %>
   <p>Be the first to review this restaurant!</p>
 <% else %>
   <% @reviews.each do |review| %>
-    <div class="card p-3">
-    <div>rating: <%= review.rating %></div>
-    <div>title: <%= review.title %></div>
-    <div>body: <%= review.body %></div>
-    <div>upvotes: <%= review.upvotes %></div>
+    <div class="card p-3" id="review-<%= review.id %>">
+      <div>rating: <%= review.rating %></div>
+      <div>title: <%= review.title %></div>
+      <div>body: <%= review.body %></div>
+      <div>upvotes: <%= review.upvotes %></div>
+      <%= link_to 'Edit', edit_restaurant_review_path(@restaurant, review)%>
+      <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
+
     <br>
   <% end %>
 <% end %>
+</div>
 <tr>
 
-
-<%= render '/reviews/new', restaurant: @restaurant, review: @review %>
+<%= render '/reviews/form', restaurant: @restaurant, review: @review %>

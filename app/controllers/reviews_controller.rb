@@ -1,26 +1,52 @@
 class ReviewsController < ApplicationController
   def new
     @review = Review.new
+    authorize @review
     @restaurant = Restaurant.new
   end
 
   def create
     @review = Review.new(review_params)
+    authorize @review
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review.restaurant = @restaurant
     @review.user = current_user
     if @review.save
-      redirect_to restaurant_path(@restaurant)
+      redirect_to restaurant_path(@restaurant, anchor: "review-#{@review.id}")
     else
       @reviews = @restaurant.reviews
       render 'restaurants/show'
     end
   end
 
+  def edit
+    @restaurant = Restaurant.find(params[:restaurant_id])
+      @review = Review.find(params[:id])
+    authorize @review
+  end
+
+  def update
+    @review = Review.find(params[:id])
+    authorize @review
+    @review.update(review_params)
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    authorize @restaurant
+
+    # no need for app/views/restaurants/update.html.erb
+    redirect_to root_path
+  end
+
+  def destroy
+    @review = Review.find(params[:id])
+    authorize @review
+    @review.destroy
+    redirect_to restaurant_path(@review.restaurant_id)
+  end
+
   private
 
   def review_params
-    params.require(:review).permit(:rating, :title, :body)
+    params.require(:review).permit(:rating, :title, :body, :restaurant_id)
   end
 end
 
