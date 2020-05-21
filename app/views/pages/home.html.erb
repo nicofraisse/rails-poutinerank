@@ -3,11 +3,18 @@
 
 <h2>Restaurants</h2>
 <ul>
-<% @restaurants.each do |restaurant| %>
-  <li>
-    <%= link_to restaurant.name, restaurant_path(restaurant) %>
-  </li>
-<% end %>
+  <% @restaurants.each do |restaurant| %>
+    <li>
+      <%= link_to restaurant.name, restaurant_path(restaurant) %>
+    </li>
+  <% end %>
 </ul>
 
 <%= link_to 'Create a restaurant', new_restaurant_path %>
+
+
+<div id="map"
+     style="width: 100%; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+</div>

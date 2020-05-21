@@ -1,10 +1,11 @@
 # DATA
+puts 'destroying users...'
+User.destroy_all
 
-
-'destroying restaurants...'
+puts 'destroying restaurants...'
 Restaurant.destroy_all
 
-'destroying restaurant categories...'
+puts 'destroying restaurant categories...'
 RestaurantCategory.destroy_all
 
 restaurant_categories = [
@@ -14,6 +15,11 @@ restaurant_categories = [
   { name: 'Fancy' }
 ]
 
+puts 'creating god...'
+god = User.create!(
+  email: 'god@gmail.com',
+  password: '123123',
+)
 
 restaurant_categories.each do |r_c|
   RestaurantCategory.create(r_c)
@@ -26,25 +32,29 @@ restaurants = [
     name: 'Poutineville',
     address: '3930 rue des pommiers, Montreal, QC',
     price_index: rand(1..3),
-    restaurant_category: RestaurantCategory.all.sample
+    restaurant_category: RestaurantCategory.all.sample,
+    user: god
   },
   {
     name: 'Poutine Pro',
     address: '6767 rue Hutchisson, Montreal, QC',
     price_index: rand(1..3),
-    restaurant_category: RestaurantCategory.all.sample
+    restaurant_category: RestaurantCategory.all.sample,
+    user: god
   },
   {
     name: 'Poutine Laurier',
     address: '5350 avenue Decelles, Montreal, QC',
     price_index: rand(1..3),
-    restaurant_category: RestaurantCategory.all.sample
+    restaurant_category: RestaurantCategory.all.sample,
+    user: god
   },
   {
     name: 'La banquise',
     address: '750 avenue Laval, Montreal, QC',
     price_index: rand(1..3),
-    restaurant_category: RestaurantCategory.all.sample
+    restaurant_category: RestaurantCategory.all.sample,
+    user: god
   },
 ]
 
