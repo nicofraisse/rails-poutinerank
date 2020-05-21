@@ -20,8 +20,7 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @restaurant = Restaurant.find(params[:restaurant_id])
-      @review = Review.find(params[:id])
+    @review = Review.find(params[:id])
     authorize @review
   end
 
@@ -29,11 +28,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     authorize @review
     @review.update(review_params)
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    authorize @restaurant
-
-    # no need for app/views/restaurants/update.html.erb
-    redirect_to root_path
+    redirect_to restaurant_path(@review.restaurant_id)
   end
 
   def destroy

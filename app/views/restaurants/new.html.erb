@@ -1,10 +1,2 @@
-<%= simple_form_for @restaurant do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.association :restaurant_category, input_html: { class: "" }, include_hidden: false %>
-  <%= f.input :price_index %>
-  <%= f.submit "Create Restaurant", class: "btn btn-primary" %>
-  <%= link_to "Cancel", root_path, class: "btn btn-warning" %>
-
-
-<% end %>
+<h1>New Restaurant</h1>
+<%= render partial: '/restaurants/form' %>

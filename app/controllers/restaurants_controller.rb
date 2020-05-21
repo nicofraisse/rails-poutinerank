@@ -19,11 +19,25 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     authorize @restaurant
+    @restaurant.user = current_user
     if @restaurant.save
       redirect_to restaurant_path(@restaurant)
     else
+      raise
       render :new
     end
+  end
+
+  def edit
+    @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
+  end
+
+  def update
+    @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
+    @restaurant.update(restaurant_params)
+    redirect_to restaurant_path(@restaurant)
   end
 
   def destroy

@@ -5,6 +5,7 @@
 <div>category: <%= @restaurant.restaurant_category.name %></div>
 <div>price_index: <%= @restaurant.price_index %></div>
 <div>address: <%= @restaurant.address %></div>
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
 <%= link_to 'Delete', restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
 <br>
 
@@ -20,7 +21,7 @@
       <div>title: <%= review.title %></div>
       <div>body: <%= review.body %></div>
       <div>upvotes: <%= review.upvotes %></div>
-      <%= link_to 'Edit', edit_restaurant_review_path(@restaurant, review)%>
+      <%= link_to 'Edit', edit_review_path(review) %>
       <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
 
