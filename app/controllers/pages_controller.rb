@@ -2,7 +2,11 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
 
   def home
-    @restaurants = Restaurant.geocoded # returns restaurants with coordinates
+    if params[:query].present?
+      @restaurants = Restaurant.global_search(params[:query])
+    else
+      @restaurants = Restaurant.all
+    end
 
     @markers = @restaurants.map do |restaurant|
       {
