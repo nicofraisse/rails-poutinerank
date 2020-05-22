@@ -1,7 +1,6 @@
 class RestaurantsController < ApplicationController
   def index
     @restaurants = Restaurant.all
-    authorize @restaurant
   end
 
   def show
