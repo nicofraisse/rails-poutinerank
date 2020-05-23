@@ -1,6 +1,12 @@
 class RestaurantsController < ApplicationController
+  skip_after_action :verify_policy_scoped, :only => :index
   def index
     @restaurants = Restaurant.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { restaurants: @restaurants } }
+    end
   end
 
   def show
