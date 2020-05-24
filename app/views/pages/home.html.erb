@@ -1,58 +1,79 @@
-<h1 class="text-center mt-5">Poutine Podium</h1>
-<p class="text-center">Le site où l'on critique sa poutine.</p>
 
-<h2 class="text-center mb-3 mt-5">Les meilleurs poutines</h2>
-
-<div class="tier-card">
-  <div class="tier-card-rank">
-    #1
-  </div>
-  <div class="tier-card-restaurant">
-    Ma poule mouillée
-  </div>
-  <div class="tier-card-city">
-    Montréal
-  </div>
-  <div class="tier-card-rating">
-    97%
-  </div>
-  <div class="tier-card-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/1200px-Food_at_WIkimanian_2017_02.jpg" alt="">
+<div class="main-banner">
+  <h1 class="text-white text-center mt-5">Poutine Podium</h1>
+  <p class="text-white text-center">Le site où l'on critique sa poutine.</p>
+  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row my-4">
+  <%= link_to 'Critiquer une poutine', root_path, class: "btn btn-main-action" %>
+  <%= link_to 'Naviguer les restaurants', root_path, class: "btn btn-secondary-action" %>
   </div>
 </div>
 
-<div class="tier-card">
-  <div class="tier-card-rank">
-    #2
-  </div>
-  <div class="tier-card-restaurant">
-    Chez Claudette
-  </div>
-  <div class="tier-card-city">
-    Laval
-  </div>
-  <div class="tier-card-rating">
-    93%
-  </div>
-  <div class="tier-card-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/1200px-Food_at_WIkimanian_2017_02.jpg" alt="">
-  </div>
-</div>
 
-<div class="tier-card">
-  <div class="tier-card-rank">
-    #3
-  </div>
-  <div class="tier-card-restaurant">
-    St-Hubert
-  </div>
-  <div class="tier-card-city">
-    Montréal
-  </div>
-  <div class="tier-card-rating">
-    91%
-  </div>
-  <div class="tier-card-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/1200px-Food_at_WIkimanian_2017_02.jpg" alt="">
-  </div>
-</div>
+
+<h2 class="text-center my-3">Palmarès</h2>
+
+
+
+
+<table class="table-podium table">
+  <% @restaurants.each_with_index do |restaurant, i| %>
+    <tr data-toggle="collapse" data-target="#collapse-<%= i %>" class="table-podium-header">
+      <td>
+        <% if restaurant.photo.attached? %>
+          <%= cl_image_tag restaurant.photo.key, class: "img-circle" %>
+        <% else %>
+          <%= image_tag 'https://previews.123rf.com/images/sudowoodo/sudowoodo1701/sudowoodo170100010/68834656-poutine-traditional-canadian-food-from-quebec-potato-french-fries-with-gravy-and-cheese-curds-isolat.jpg', class: "img-circle" %>
+        <% end %>
+      </td>
+    <td>#<%= i + 1 %></td>
+      <td class="w-100"><%= restaurant.name %></td>
+      <td>
+        Montréal
+      </td>
+      <td>94%</td>
+    </tr>
+    <tr class="table-podium-body">
+      <td colspan="12">
+        <div class="collapse" id="collapse-<%= i %>">
+          <div class="p-2">
+            <p>
+              <%= restaurant.description %>
+            </p>
+
+            <div class="container-fluid">
+              <div id="carousel-example-<%= i %>" class="carousel carousel-<%= i %> slide" data-interval="false" data-ride="carousel-example-<%= i %>">
+
+                <div class="carousel-inner c-<%= i %> row w-100 mx-auto" role="listbox">
+                  <% restaurant.reviews.map{ |r| r.photos }.flatten.each_with_index do |photo, j| %>
+                    <div class="carousel-item ci-<%= i %> col-12 col-sm-6 col-md-4 col-lg-3 <%= 'active' if j == 0 %>">
+                      <%= cl_image_tag photo.key, height: 160, width: 240, crop: :fill, class: "img-fluid mx-auto d-block carousel-img" %>
+                    </div>
+                  <% end %>
+                </div>
+
+                <a class="carousel-control-prev" href="#carousel-example-<%= i %>" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-example-<%= i %>" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <%= link_to 'Voir le restaurant', restaurant_path(restaurant), class: "btn btn-main-action my-4" %>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+
+<!-- Top content -->
+
+
+
+
+
+

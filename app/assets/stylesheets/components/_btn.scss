@@ -1,0 +1,24 @@
+.btn-main-action {
+  background-color: rgba(95, 67, 198, 1.00);
+  color: white;
+  margin: 6px;
+  &:hover {
+    color: white;
+    background-color: #4938ab;
+  }
+}
+
+.btn-secondary-action {
+  color: rgba(95, 67, 198, 1.00);
+  background: rgba(255, 255, 255, 0.9);
+  margin: 6px;
+  &:hover {
+    color: #4938ab;
+  }
+}
+
+@media (max-width: 580px) {
+  .btn-main-action {
+    width: 220px;
+  }
+}

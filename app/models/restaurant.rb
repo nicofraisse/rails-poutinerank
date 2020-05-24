@@ -16,11 +16,11 @@ class Restaurant < ApplicationRecord
 
   validates :address, presence: true
   validates :name, presence: true
-  validates :price_index, presence: true, uniqueness: true
+  validates :price_index, presence: true
   validates :price_index, presence: true, inclusion: 1..3
   validates :restaurant_category_id, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
-  has_many_attached :photos
+  has_one_attached :photo
 end

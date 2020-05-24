@@ -23,6 +23,11 @@
       <div>upvotes: <%= review.upvotes %></div>
       <%= link_to 'Edit', edit_review_path(review) %>
       <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
+      <div>
+        <% review.photos.each do |photo| %>
+          <%= cl_image_tag photo.key, height: 160, width: 240, crop: :fill %>
+        <% end %>
+      </div>
     </div>
 
     <br>

@@ -1,0 +1,13 @@
+.main-banner {
+  padding: 32px;
+  background: linear-gradient(-10deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.4)), url('https://www.seriouseats.com/images/2015/03/20150327-poutine-joshua-bousel.jpg');
+  background-size: cover;
+  max-width: 1200px;
+  margin: 0 auto;
+  h1 {
+    font-size: 48px;
+  }
+  p {
+    font-size: 20px;
+  }
+}

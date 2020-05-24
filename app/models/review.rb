@@ -1,7 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :restaurant
   belongs_to :user
-
   validates :user_id, presence: true
   validates :rating, presence: true, :inclusion => 0..10
   validates :title, presence: true, length: { minimum: 4, maximum: 80 }

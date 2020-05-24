@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  skip_after_action :verify_policy_scoped, :only => :index
+  skip_after_action :verify_policy_scoped, :only => [:index, :show]
   def index
     if params[:query].present?
       @restaurants = Restaurant.global_search(params[:query])
@@ -25,6 +25,7 @@ class RestaurantsController < ApplicationController
     authorize @restaurant
     @review = Review.new
     @reviews = @restaurant.reviews if @restaurant.reviews
+
   end
 
   def new
@@ -39,7 +40,6 @@ class RestaurantsController < ApplicationController
     if @restaurant.save
       redirect_to restaurant_path(@restaurant)
     else
-      raise
       render :new
     end
   end
@@ -66,6 +66,6 @@ class RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :category, :address, :price_index, :restaurant_category_id)
+    params.require(:restaurant).permit(:name, :description, :category, :address, :price_index, :photo, :restaurant_category_id)
   end
 end

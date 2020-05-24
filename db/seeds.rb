@@ -31,6 +31,7 @@ end
 restaurants = [
   {
     name: 'Poutineville',
+    description: 'Everything we do is about you. From chefs who create exciting new flavors, to crew members who know exactly how you want your drink – we prioritize what you need to get you on your way. We strive to keep you at your best, and we remain loyal to you, your tastes and your time.',
     address: '3930 rue des pommiers, Montreal, QC',
     price_index: rand(1..3),
     restaurant_category: RestaurantCategory.all.sample,
@@ -38,6 +39,7 @@ restaurants = [
   },
   {
     name: 'Poutine Pro',
+    description: 'Everything we do is about you. From chefs who create exciting new flavors, to crew members who know exactly how you want your drink – we prioritize what you need to get you on your way. We strive to keep you at your best, and we remain loyal to you, your tastes and your time.',
     address: '6767 rue Hutchisson, Montreal, QC',
     price_index: rand(1..3),
     restaurant_category: RestaurantCategory.all.sample,
@@ -45,6 +47,7 @@ restaurants = [
   },
   {
     name: 'Poutine Laurier',
+    description: 'Everything we do is about you. From chefs who create exciting new flavors, to crew members who know exactly how you want your drink – we prioritize what you need to get you on your way. We strive to keep you at your best, and we remain loyal to you, your tastes and your time.',
     address: '5350 avenue Decelles, Montreal, QC',
     price_index: rand(1..3),
     restaurant_category: RestaurantCategory.all.sample,
@@ -52,6 +55,7 @@ restaurants = [
   },
   {
     name: 'La banquise',
+    description: 'Everything we do is about you. From chefs who create exciting new flavors, to crew members who know exactly how you want your drink – we prioritize what you need to get you on your way. We strive to keep you at your best, and we remain loyal to you, your tastes and your time.',
     address: '750 avenue Laval, Montreal, QC',
     price_index: rand(1..3),
     restaurant_category: RestaurantCategory.all.sample,
