@@ -1,10 +1,9 @@
 class Restaurant < ApplicationRecord
   include PgSearch
     pg_search_scope :global_search,
-      against: [ :name ],
+      against: [ :name , :address],
       associated_against: {
         restaurant_category: [:name],
-        restaurant_address: [:name]
       },
       using: {
         tsearch: { prefix: true } # <-- now `superman batm` will return something!
