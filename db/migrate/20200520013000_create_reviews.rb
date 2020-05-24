@@ -6,8 +6,7 @@ class CreateReviews < ActiveRecord::Migration[6.0]
       t.integer :rating
       t.string :title
       t.text :body
-      t.string :language
-      t.integer :upvotes
+      t.integer :upvotes, default: 0
 
       t.timestamps
     end
