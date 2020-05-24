@@ -19,6 +19,7 @@ puts 'creating god...'
 god = User.create!(
   email: 'god@gmail.com',
   password: '123123',
+  first_name: 'God'
 )
 
 restaurant_categories.each do |r_c|

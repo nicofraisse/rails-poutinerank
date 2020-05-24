@@ -1,31 +1,58 @@
-<h1>Home</h1>
-<p>Wanna rate a poutine?</p>
+<h1 class="text-center mt-5">Poutine Podium</h1>
+<p class="text-center">Le site où l'on critique sa poutine.</p>
 
-<%= form_tag root_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Find a poutine"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
+<h2 class="text-center mb-3 mt-5">Les meilleurs poutines</h2>
 
+<div class="tier-card">
+  <div class="tier-card-rank">
+    #1
+  </div>
+  <div class="tier-card-restaurant">
+    Ma poule mouillée
+  </div>
+  <div class="tier-card-city">
+    Montréal
+  </div>
+  <div class="tier-card-rating">
+    97%
+  </div>
+  <div class="tier-card-image">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/1200px-Food_at_WIkimanian_2017_02.jpg" alt="">
+  </div>
+</div>
 
-<h2>Restaurants</h2>
-  <% @restaurants.each do |restaurant| %>
-    <li>
-      <%= link_to restaurant.name, restaurant_path(restaurant) %> |
-      <%= link_to 'Edit', edit_restaurant_path(restaurant) %> |
-      <%= link_to 'Delete', restaurant_path(restaurant), method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
-    </li>
-  <% end %>
-</ul>
+<div class="tier-card">
+  <div class="tier-card-rank">
+    #2
+  </div>
+  <div class="tier-card-restaurant">
+    Chez Claudette
+  </div>
+  <div class="tier-card-city">
+    Laval
+  </div>
+  <div class="tier-card-rating">
+    93%
+  </div>
+  <div class="tier-card-image">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/1200px-Food_at_WIkimanian_2017_02.jpg" alt="">
+  </div>
+</div>
 
-<%= link_to 'Create a restaurant', new_restaurant_path %>
-
-
-<div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+<div class="tier-card">
+  <div class="tier-card-rank">
+    #3
+  </div>
+  <div class="tier-card-restaurant">
+    St-Hubert
+  </div>
+  <div class="tier-card-city">
+    Montréal
+  </div>
+  <div class="tier-card-rating">
+    91%
+  </div>
+  <div class="tier-card-image">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/1200px-Food_at_WIkimanian_2017_02.jpg" alt="">
+  </div>
 </div>

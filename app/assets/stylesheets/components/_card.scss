@@ -1,0 +1,39 @@
+.tier-card {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  margin-bottom: 8px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  div {
+    text-align: center;
+  }
+  .tier-card-rank {
+    width: 10%
+  }
+
+  .tier-card-restaurant {
+    width: 45%;
+    text-align: left;
+  }
+
+  .tier-card-city {
+    width: 25%;
+    text-align: left;
+
+  }
+  .tier-card-image {
+    width: 20%;
+    text-align: right;
+    margin-right: 8px;
+    img {
+      height: 48px;
+      width: 72px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  }
+
+}

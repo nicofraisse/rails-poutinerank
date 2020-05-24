@@ -1,11 +1,22 @@
 class RestaurantsController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => :index
   def index
-    @restaurants = Restaurant.all
-
+    if params[:query].present?
+      @restaurants = Restaurant.global_search(params[:query])
+    else
+      @restaurants = Restaurant.all
+    end
     respond_to do |format|
       format.html
       format.json { render json: { restaurants: @restaurants } }
+    end
+
+    @markers = @restaurants.map do |restaurant|
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
+        infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
+      }
     end
   end
 
