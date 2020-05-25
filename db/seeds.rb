@@ -1,4 +1,5 @@
-PoutineCategory.create(name: 'Casse-croûte')
+PoutineCategory.find(name: 'Casse-croûte').destroy
+RestaurantCategory.create(name: 'Casse-croûte')
 
 # # DATA
 # puts 'destroying users...'
