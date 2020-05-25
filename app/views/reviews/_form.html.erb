@@ -1,7 +1,0 @@
-<%= simple_form_for [restaurant, review], remote: true do |f| %>
-  <%= f.input :rating %>
-  <%= f.input :title %>
-  <%= f.input :body %>
-  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-  <%= f.submit "Rate poutine", class: "btn btn-primary" %>
-<% end %>

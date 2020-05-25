@@ -36,9 +36,10 @@
       <td colspan="12">
         <div class="collapse" id="collapse-<%= i %>">
           <div class="p-2">
-            <p>
-              <%= restaurant.description %>
-            </p>
+            <div>ID: <%= restaurant.id %></div>
+            <div>Catégorie: <%= restaurant.restaurant_category.name %></div>
+            <div>Prix de la poutine classique: <%= restaurant.poutine_price %> $ (avant taxes)</div>
+            <div>Addresse: <%= restaurant.address %></div>
 
             <div class="container-fluid">
               <div id="carousel-example-<%= i %>" class="carousel carousel-<%= i %> slide" data-interval="false" data-ride="carousel-example-<%= i %>">
@@ -72,7 +73,6 @@
 <h2 class="text-center my-3">Derniers avis</h2>
 
 <div class="card-review-container">
-
 
 </div>
 

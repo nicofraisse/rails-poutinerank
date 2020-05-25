@@ -1,0 +1,16 @@
+<h1 class="text-center my-4">Laisser son avis</h1>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <%= simple_form_for([@restaurant, @review]) do |f| %>
+        <%= f.input :global_rating %>
+        <%= f.input :title %>
+        <%= f.input :body %>
+        <%= f.association :poutine_category, input_html: { class: "" }, include_hidden: false, as: :radio_buttons %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+        <%= f.submit "Rate poutine", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
