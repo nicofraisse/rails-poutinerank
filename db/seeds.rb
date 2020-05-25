@@ -42,28 +42,28 @@ restaurants = [
   {
     name: 'Poutineville',
     address: '3930 rue des pommiers, Montreal, QC',
-    poutine_price: rand(6..12),
+    poutine_price: 7.95,
     restaurant_category: RestaurantCategory.all.sample,
     user: god
   },
   {
     name: 'Poutine Pro',
     address: '6767 rue Hutchisson, Montreal, QC',
-    poutine_price: rand(6..12),
+    poutine_price: 7.95,
     restaurant_category: RestaurantCategory.all.sample,
     user: god
   },
   {
     name: 'Poutine Laurier',
     address: '5350 avenue Decelles, Montreal, QC',
-    poutine_price: rand(6..12),
+    poutine_price: 7.95,
     restaurant_category: RestaurantCategory.all.sample,
     user: god
   },
   {
     name: 'La banquise',
     address: '750 avenue Laval, Montreal, QC',
-    poutine_price: rand(6..12),
+    poutine_price: 7.95,
     restaurant_category: RestaurantCategory.all.sample,
     user: god
   },
