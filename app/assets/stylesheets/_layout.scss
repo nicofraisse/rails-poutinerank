@@ -1,0 +1,33 @@
+body {
+  p {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: $SM) {
+  body {
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (min-width: $MD) {
+  body {
+
+  }
+}
+
+@media (min-width: $LG) {
+  body {
+
+  }
+}
+
+@media (min-width: $XL) {
+  body {
+    p {
+      font-size: 17px;
+    }
+  }
+}

@@ -1,10 +1,12 @@
 .table-podium {
-  max-width: 720px;
+  max-width: 1024px;
+  color: rgb(30, 30, 30);
   margin: 0 auto;
-
   .table-podium-header {
+    font-family: 'Chelsea Market', cursive;
     background-color: rgba(0, 0, 0, 0.05);
     transition: 0.1s background-color;
+    cursor: pointer;
     td {
       vertical-align: baseline;
     }
@@ -16,11 +18,29 @@
  .table-podium-body td {
     padding: 0.5rem;
   }
+}
 
-  .img-circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    object-fit: cover;
+
+
+
+
+
+@media (min-width: $SM) {
+  .table-podium-header {
+    font-size: 18px;
   }
+}
+
+@media (min-width: $MD) {
+  .table-podium-header {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: $LG) {
+
+}
+
+@media (min-width: $XL) {
+
 }

@@ -18,7 +18,7 @@
 <table class="table-podium table">
   <% @restaurants.each_with_index do |restaurant, i| %>
     <tr data-toggle="collapse" data-target="#collapse-<%= i %>" class="table-podium-header">
-      <td>
+      <td class="d-none d-sm-block">
         <% if restaurant.photo.attached? %>
           <%= cl_image_tag restaurant.photo.key, class: "img-circle" %>
         <% else %>
@@ -68,6 +68,16 @@
     </tr>
   <% end %>
 </table>
+
+<h2 class="text-center my-3">Derniers avis</h2>
+
+<div class="card-review-container">
+
+
+</div>
+
+
+
 
 <script>
 
