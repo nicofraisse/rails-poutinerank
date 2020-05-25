@@ -5,10 +5,10 @@
 //= require turbolinks
 
 require("@rails/ujs").start()
-require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("bootstrap")
+require("turbolinks").start()
 
 import { initMapbox } from '../plugins/init_mapbox';
 
@@ -31,4 +31,4 @@ document.addEventListener('turbolinks:load', () => {
 
 
 import "controllers"
-import 'bootstrap';
+
