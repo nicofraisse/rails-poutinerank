@@ -1,8 +1,8 @@
 <%= simple_form_for @restaurant do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.input :poutine_price %>
-  <%= f.association :restaurant_category, input_html: { class: "" }, include_hidden: false, as: :radio_buttons %>
+  <%= f.input :name, label: 'Nom du restaurant' %>
+  <%= f.input :address, label: 'Addresse du restaurant (doit apparaître sur https://poutinescore.herokuapp.com/restaurants)' %>
+  <%= f.input :poutine_price, label: 'Prix de la poutine classique (avant taxes)' %>
+  <%= f.association :restaurant_category, input_html: { class: "" }, include_hidden: false, as: :radio_buttons, label: 'Catégorie du restaurant)' %>
   <%= f.input :photo, as: :file %>
   <%= f.submit "Soumettre le restaurant", class: "btn btn-primary" %>
   <%= link_to "Annuler", root_path, class: "btn btn-warning" %>

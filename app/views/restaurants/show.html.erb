@@ -1,39 +1,50 @@
-<h1>Restaurant</h1>
+<h1 class="text-center">Restaurant</h1>
 
-<h2>name: <%= @restaurant.name %></h2>
-<div>id: <%= @restaurant.id %></div>
-<div>category: <%= @restaurant.restaurant_category.name %></div>
-<div>poutine price: <%= @restaurant.poutine_price %></div>
-<div>address: <%= @restaurant.address %></div>
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
-<%= link_to 'Delete', restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
-<br>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
 
-<h3>Reviews</h3>
-
-<div id="reviews">
-<% if @reviews.blank? %>
-  <p>Be the first to review this restaurant!</p>
-<% else %>
-  <% @reviews.each do |review| %>
-    <div class="card p-3" id="review-<%= review.id %>">
-      <div>rating: <%= review.global_rating %></div>
-      <div>title: <%= review.title %></div>
-      <div>body: <%= review.body %></div>
-      <div>upvotes: <%= review.upvotes %></div>
-      <%= link_to 'Edit', edit_review_path(review) %>
-      <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
+      <h2 class="text-center">Nom: <%= @restaurant.name %></h2>
+      <div>ID: <%= @restaurant.id %></div>
+      <div>Catégorie: <%= @restaurant.restaurant_category.name %></div>
+      <div>Prix de la poutine classique: <%= @restaurant.poutine_price %> $ (avant taxes)</div>
+      <div>Addresse: <%= @restaurant.address %></div>
+      <%= cl_image_tag @restaurant.photo.key, height: 160, width: 240, crop: :fill unless @restaurant.photo.blank? %>
       <div>
-        <% review.photos.each do |photo| %>
-          <%= cl_image_tag photo.key, height: 160, width: 240, crop: :fill %>
-        <% end %>
+        <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
+
       </div>
+      <%= link_to 'Delete', restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+      <br>
+
+      <h3 class="text-center">Avis</h3>
+
+      <div id="reviews">
+      <% if @reviews.blank? %>
+        <p>Be the first to review this restaurant!</p>
+      <% else %>
+        <% @reviews.each do |review| %>
+          <div class="card p-3" id="review-<%= review.id %>">
+            <div>rating: <%= review.global_rating %></div>
+            <div>title: <%= review.title %></div>
+            <div>body: <%= review.body %></div>
+            <div>upvotes: <%= review.upvotes %></div>
+            <%= link_to 'Edit', edit_review_path(review) %>
+            <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
+            <div>
+              <% review.photos.each do |photo| %>
+                <%= cl_image_tag photo.key, height: 160, width: 240, crop: :fill %>
+              <% end %>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      <% end %>
+      </div>
+      <tr>
+
+      <%= link_to 'Donner son avis', new_restaurant_review_path(@restaurant, @review), class: "btn btn-main-action" %>
+
     </div>
-
-    <br>
-  <% end %>
-<% end %>
+  </div>
 </div>
-<tr>
-
-<%= link_to 'Donner son avis', new_restaurant_review_path(@restaurant, @review) %>

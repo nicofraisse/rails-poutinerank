@@ -15,7 +15,6 @@ class Restaurant < ApplicationRecord
 
   validates :address, presence: true
   validates :name, presence: true
-  validates :poutine_price, presence: true
   validates :restaurant_category_id, presence: true
 
   geocoded_by :address
