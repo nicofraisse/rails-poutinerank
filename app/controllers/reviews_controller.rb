@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     authorize @review
-    @restaurant = Restaurant.new
+    @restaurant = Restaurant.new(id: params[:restaurant_id])
   end
 
   def create
@@ -41,7 +41,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:rating, :title, :body, :restaurant_id, photos: [])
+    params.require(:review).permit(:global_rating, :poutine_category_id, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
   end
 end
 

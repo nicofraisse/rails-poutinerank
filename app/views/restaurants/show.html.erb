@@ -3,7 +3,7 @@
 <h2>name: <%= @restaurant.name %></h2>
 <div>id: <%= @restaurant.id %></div>
 <div>category: <%= @restaurant.restaurant_category.name %></div>
-<div>price_index: <%= @restaurant.price_index %></div>
+<div>poutine price: <%= @restaurant.poutine_price %></div>
 <div>address: <%= @restaurant.address %></div>
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
 <%= link_to 'Delete', restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
@@ -17,7 +17,7 @@
 <% else %>
   <% @reviews.each do |review| %>
     <div class="card p-3" id="review-<%= review.id %>">
-      <div>rating: <%= review.rating %></div>
+      <div>rating: <%= review.global_rating %></div>
       <div>title: <%= review.title %></div>
       <div>body: <%= review.body %></div>
       <div>upvotes: <%= review.upvotes %></div>
@@ -36,4 +36,4 @@
 </div>
 <tr>
 
-<%= render '/reviews/form', restaurant: @restaurant, review: @review %>
+<%= link_to 'Donner son avis', new_restaurant_review_path(@restaurant, @review) %>

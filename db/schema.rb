@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_162009) do
+ActiveRecord::Schema.define(version: 2020_05_25_181205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,12 @@ ActiveRecord::Schema.define(version: 2020_05_24_162009) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "poutine_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "restaurant_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -45,14 +51,13 @@ ActiveRecord::Schema.define(version: 2020_05_24_162009) do
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.integer "price_index"
+    t.float "poutine_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "restaurant_category_id", null: false
     t.bigint "user_id", null: false
     t.float "latitude"
     t.float "longitude"
-    t.text "description"
     t.index ["restaurant_category_id"], name: "index_restaurants_on_restaurant_category_id"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
@@ -60,12 +65,18 @@ ActiveRecord::Schema.define(version: 2020_05_24_162009) do
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "restaurant_id", null: false
-    t.integer "rating"
+    t.integer "global_rating"
+    t.integer "service_rating"
+    t.integer "fries_rating"
+    t.integer "cheese_rating"
+    t.integer "sauce_rating"
     t.string "title"
     t.text "body"
     t.integer "upvotes", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "poutine_category_id", null: false
+    t.index ["poutine_category_id"], name: "index_reviews_on_poutine_category_id"
     t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -80,7 +91,6 @@ ActiveRecord::Schema.define(version: 2020_05_24_162009) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "first_name"
     t.string "last_name"
-    t.string "account_privileges"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -88,6 +98,7 @@ ActiveRecord::Schema.define(version: 2020_05_24_162009) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "restaurants", "restaurant_categories"
   add_foreign_key "restaurants", "users"
+  add_foreign_key "reviews", "poutine_categories"
   add_foreign_key "reviews", "restaurants"
   add_foreign_key "reviews", "users"
 end
