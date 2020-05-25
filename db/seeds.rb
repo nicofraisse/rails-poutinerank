@@ -1,4 +1,4 @@
-PoutineCategory.find(name: 'Casse-croûte').destroy
+
 RestaurantCategory.create(name: 'Casse-croûte')
 
 # # DATA
