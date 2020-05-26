@@ -20,11 +20,6 @@
   }
 }
 
-
-
-
-
-
 @media (min-width: $SM) {
   .table-podium-header {
     font-size: 18px;
@@ -32,9 +27,7 @@
 }
 
 @media (min-width: $MD) {
-  .table-podium-header {
-    font-size: 20px;
-  }
+
 }
 
 @media (min-width: $LG) {
@@ -42,5 +35,7 @@
 }
 
 @media (min-width: $XL) {
-
+  .table-podium-header {
+    font-size: 20px;
+  }
 }

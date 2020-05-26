@@ -1,6 +1,6 @@
-
-RestaurantCategory.create(name: 'Casse-croûte')
-
+a = RestaurantCategory.where(name: 'Normal').first
+a.name = 'Restaurant'
+a.save
 # # DATA
 # puts 'destroying users...'
 # User.destroy_all
