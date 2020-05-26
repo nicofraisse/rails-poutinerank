@@ -28,7 +28,7 @@
     <td>#<%= i + 1 %></td>
       <td class="w-100"><%= restaurant.name %></td>
       <td>
-        <%= Geocoder.search(restaurant.address).first.city unless Geocoder.search(restaurant.address).blank? %>
+        <%= restaurant.json_address['data']['address']['city'] unless restaurant.json_address.nil? %>
       </td>
       <td>94%</td>
     </tr>
