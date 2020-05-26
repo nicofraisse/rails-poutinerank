@@ -42,6 +42,7 @@
       margin-right: 8px;
       margin-bottom: 8px;
       transition: 0.15s;
+      user-select: none;
       &:hover {
         background-color: rgba(110, 70, 150, 0.3);
       }
