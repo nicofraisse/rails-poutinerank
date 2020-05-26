@@ -16,7 +16,7 @@
 
 
 <table class="table-podium table">
-  <% @restaurants.each_with_index do |restaurant, i| %>
+  <% @restaurants.take(9).each_with_index do |restaurant, i| %>
     <tr data-toggle="collapse" data-target="#collapse-<%= i %>" class="table-podium-header">
       <td class="d-none d-sm-block">
         <% if restaurant.photo.attached? %>

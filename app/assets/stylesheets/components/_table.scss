@@ -1,0 +1,28 @@
+.table-index {
+  margin: 64px auto;
+  width: 100vw;
+  th, td {
+    padding: 8px;
+  }
+
+  th {
+    height: 40px;
+    verical-align: middle;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  }
+
+  tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    transition: 0.05s;
+    text-align: center;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+@media (min-width: $XL) {
+  .table-index {
+    max-width: 1440px;
+  }
+}

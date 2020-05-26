@@ -1,28 +1,73 @@
-<h2>Restaurants</h2>
-<%= form_tag root_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Find a poutine"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
+<h1 class="my-4 text-center">Restaurants</h1>
 
-<ul>
-  <% @restaurants.each do |restaurant| %>
-    <li>
-      <%= link_to restaurant.name, restaurant_path(restaurant) %> |
-      <%= link_to 'Edit', edit_restaurant_path(restaurant) %> |
-      <%= link_to 'Delete', restaurant_path(restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
-    </li>
-  <% end %>
-</ul>
-
-<div id="map"
-     style="width: 100%; height: 400px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-xl-4">
+      <%= form_tag root_path, method: :get do %>
+        <div class="d-flex">
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control form-inline d-inline",
+            placeholder: "Rechercher un restaurant..."
+          %>
+          <%= submit_tag "Search", class: "btn btn-primary d-inline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+
+<table class="table-index">
+  <thead>
+    <tr>
+      <th>Rang</th>
+      <th class="text-left">Nom</th>
+      <th class="text-left">Ville</th>
+      <th class="text-right">Prix</th>
+      <th class="text-left">Type</th>
+
+
+
+
+      <th>Frites</th>
+      <th>Fromage</th>
+      <th>Sauce</th>
+      <th>Service</th>
+      <th>Globale</th>
+      <th>Nb. visites</th>
+      <th>Nb. avis</th>
+      <th>Nb. photos</th>
+      <th <td class="text-left">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @restaurants.each_with_index do |restaurant, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td class="text-left"><%= link_to restaurant.name, restaurant_path(restaurant) %></td>
+        <td class="text-left">
+          <%= Geocoder.search(restaurant.address).first.city unless Geocoder.search(restaurant.address).blank? %>
+        </td>
+        <td class="text-right" style="white-space:nowrap"><%= restaurant.poutine_price %> $</td>
+        <td class="text-left"><%= restaurant.restaurant_category.name %></td>
+        <td><%= rand(1..10) %></td>
+        <td><%= rand(1..10) %></td>
+        <td><%= rand(1..10) %></td>
+        <td><%= rand(1..10) %></td>
+        <td><%= rand(1..10) %></td>
+        <td><%= rand(0..1100) %></td>
+        <td><%= rand(0..70) %></td>
+        <td><%= rand(0..40) %></td>
+        <td class="text-left">
+          <%= link_to 'Edit', edit_restaurant_path(restaurant) %> |
+          <%= link_to 'Delete', restaurant_path(restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
@@ -57,191 +102,201 @@
 .tg .tg-075r{background-color:rgb(228, 211, 204);border-color:inherit;font-weight:bold;text-align:center;vertical-align:bottom}
 .tg .tg-z733{background-color:rgb(229, 184, 176);border-color:inherit;font-weight:bold;text-align:center;vertical-align:bottom}
 </style>
-<table class="tg">
-<thead>
-  <tr>
-    <th class="tg-0pky">Restaurant</th>
-    <th class="tg-0pky">Category</th>
-    <th class="tg-0pky">Price</th>
-    <th class="tg-0pky">Avg. Rating</th>
-    <th class="tg-0pky">Rank</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="tg-0thz">Poutine no.800</td>
-    <td class="tg-za14">Food truck</td>
-    <td class="tg-fll5">$8.50</td>
-    <td class="tg-oo58">78%</td>
-    <td class="tg-uzvj">1</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Pizza Pizza</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$4.39</td>
-    <td class="tg-ks7y">75%</td>
-    <td class="tg-fll5">2</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Patati Patata friterie de luxe</td>
-    <td class="tg-za14">Diner</td>
-    <td class="tg-fll5">$6.95</td>
-    <td class="tg-ks7y">75%</td>
-    <td class="tg-fll5">3</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Poutine Pro</td>
-    <td class="tg-za14">Diner</td>
-    <td class="tg-fll5">$7.99</td>
-    <td class="tg-u01f">75%</td>
-    <td class="tg-fll5">4</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Poutineville</td>
-    <td class="tg-za14">Restaurant</td>
-    <td class="tg-fll5">$8.00</td>
-    <td class="tg-yzv3">72%</td>
-    <td class="tg-fll5">5</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Decelles</td>
-    <td class="tg-za14">Caféteria</td>
-    <td class="tg-fll5">$5.49</td>
-    <td class="tg-zngq">70%</td>
-    <td class="tg-fll5">6</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">CSC</td>
-    <td class="tg-za14">Caféteria</td>
-    <td class="tg-fll5">$6.00</td>
-    <td class="tg-jn3q">68%</td>
-    <td class="tg-fll5">7</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Poutine Centrale</td>
-    <td class="tg-za14">Restaurant</td>
-    <td class="tg-fll5">$9.00</td>
-    <td class="tg-nkjx">67%</td>
-    <td class="tg-fll5">8</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Saint-Sulpice</td>
-    <td class="tg-za14">Pub</td>
-    <td class="tg-fll5">$7.50</td>
-    <td class="tg-nkjx">67%</td>
-    <td class="tg-fll5">9</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Frites alors</td>
-    <td class="tg-za14">Restaurant</td>
-    <td class="tg-fll5">$9.00</td>
-    <td class="tg-49in">66%</td>
-    <td class="tg-fll5">10</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">McCarold</td>
-    <td class="tg-za14">Pub</td>
-    <td class="tg-fll5">$8.25</td>
-    <td class="tg-nin8">63%</td>
-    <td class="tg-fll5">11</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Mange-moi</td>
-    <td class="tg-za14">Pub</td>
-    <td class="tg-fll5">$7.00</td>
-    <td class="tg-7veq">63%</td>
-    <td class="tg-fll5">12</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Claudette</td>
-    <td class="tg-za14">Diner</td>
-    <td class="tg-fll5">$6.95</td>
-    <td class="tg-7veq">63%</td>
-    <td class="tg-fll5">13</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Mc Donald's</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$5.30</td>
-    <td class="tg-hhs4">62%</td>
-    <td class="tg-fll5">14</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Casse-croute Pierre</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$6.00</td>
-    <td class="tg-0t0q">61%</td>
-    <td class="tg-fll5">15</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">La Banquise</td>
-    <td class="tg-za14">Restaurant</td>
-    <td class="tg-fll5">$7.95</td>
-    <td class="tg-mnw6">61%</td>
-    <td class="tg-fll5">16</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">A&amp;W</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$5.30</td>
-    <td class="tg-ic9t">61%</td>
-    <td class="tg-fll5">17</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Le Fameux</td>
-    <td class="tg-za14">Diner</td>
-    <td class="tg-fll5">$8.50</td>
-    <td class="tg-y8sf">61%</td>
-    <td class="tg-fll5">18</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Ma poule mouillée</td>
-    <td class="tg-za14">Restaurant</td>
-    <td class="tg-fll5">$10.00</td>
-    <td class="tg-mnw6">61%</td>
-    <td class="tg-fll5">19</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Ashton</td>
-    <td class="tg-za14">Diner</td>
-    <td class="tg-fll5">$5.50</td>
-    <td class="tg-9eyo">59%</td>
-    <td class="tg-fll5">20</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">St-Sacrement</td>
-    <td class="tg-za14">Pub</td>
-    <td class="tg-fll5">$8.50</td>
-    <td class="tg-jm3j">55%</td>
-    <td class="tg-fll5">21</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">La Belle Province</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$6.25</td>
-    <td class="tg-075r">55%</td>
-    <td class="tg-fll5">22</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Poutine Laurier</td>
-    <td class="tg-za14">Restaurant</td>
-    <td class="tg-fll5">$6.25</td>
-    <td class="tg-bhg5">53%</td>
-    <td class="tg-fll5">23</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Burger King</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$5.30</td>
-    <td class="tg-uwdx">53%</td>
-    <td class="tg-fll5">24</td>
-  </tr>
-  <tr>
-    <td class="tg-0thz">Valentine</td>
-    <td class="tg-za14">Fast Food</td>
-    <td class="tg-fll5">$5.30</td>
-    <td class="tg-z733">49%</td>
-    <td class="tg-fll5">25</td>
-  </tr>
-</tbody>
-</table>
+<div class="d-flex">
+
+  <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-0pky">Restaurant</th>
+        <th class="tg-0pky">Category</th>
+        <th class="tg-0pky">Price</th>
+        <th class="tg-0pky">Avg. Rating</th>
+        <th class="tg-0pky">Rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tg-0thz">Poutine no.800</td>
+        <td class="tg-za14">Food truck</td>
+        <td class="tg-fll5">$8.50</td>
+        <td class="tg-oo58">78%</td>
+        <td class="tg-uzvj">1</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Pizza Pizza</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$4.39</td>
+        <td class="tg-ks7y">75%</td>
+        <td class="tg-fll5">2</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Patati Patata friterie de luxe</td>
+        <td class="tg-za14">Diner</td>
+        <td class="tg-fll5">$6.95</td>
+        <td class="tg-ks7y">75%</td>
+        <td class="tg-fll5">3</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Poutine Pro</td>
+        <td class="tg-za14">Diner</td>
+        <td class="tg-fll5">$7.99</td>
+        <td class="tg-u01f">75%</td>
+        <td class="tg-fll5">4</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Poutineville</td>
+        <td class="tg-za14">Restaurant</td>
+        <td class="tg-fll5">$8.00</td>
+        <td class="tg-yzv3">72%</td>
+        <td class="tg-fll5">5</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Decelles</td>
+        <td class="tg-za14">Caféteria</td>
+        <td class="tg-fll5">$5.49</td>
+        <td class="tg-zngq">70%</td>
+        <td class="tg-fll5">6</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">CSC</td>
+        <td class="tg-za14">Caféteria</td>
+        <td class="tg-fll5">$6.00</td>
+        <td class="tg-jn3q">68%</td>
+        <td class="tg-fll5">7</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Poutine Centrale</td>
+        <td class="tg-za14">Restaurant</td>
+        <td class="tg-fll5">$9.00</td>
+        <td class="tg-nkjx">67%</td>
+        <td class="tg-fll5">8</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Saint-Sulpice</td>
+        <td class="tg-za14">Pub</td>
+        <td class="tg-fll5">$7.50</td>
+        <td class="tg-nkjx">67%</td>
+        <td class="tg-fll5">9</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Frites alors</td>
+        <td class="tg-za14">Restaurant</td>
+        <td class="tg-fll5">$9.00</td>
+        <td class="tg-49in">66%</td>
+        <td class="tg-fll5">10</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">McCarold</td>
+        <td class="tg-za14">Pub</td>
+        <td class="tg-fll5">$8.25</td>
+        <td class="tg-nin8">63%</td>
+        <td class="tg-fll5">11</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Mange-moi</td>
+        <td class="tg-za14">Pub</td>
+        <td class="tg-fll5">$7.00</td>
+        <td class="tg-7veq">63%</td>
+        <td class="tg-fll5">12</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Claudette</td>
+        <td class="tg-za14">Diner</td>
+        <td class="tg-fll5">$6.95</td>
+        <td class="tg-7veq">63%</td>
+        <td class="tg-fll5">13</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Mc Donald's</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$5.30</td>
+        <td class="tg-hhs4">62%</td>
+        <td class="tg-fll5">14</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Casse-croute Pierre</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$6.00</td>
+        <td class="tg-0t0q">61%</td>
+        <td class="tg-fll5">15</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">La Banquise</td>
+        <td class="tg-za14">Restaurant</td>
+        <td class="tg-fll5">$7.95</td>
+        <td class="tg-mnw6">61%</td>
+        <td class="tg-fll5">16</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">A&amp;W</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$5.30</td>
+        <td class="tg-ic9t">61%</td>
+        <td class="tg-fll5">17</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Le Fameux</td>
+        <td class="tg-za14">Diner</td>
+        <td class="tg-fll5">$8.50</td>
+        <td class="tg-y8sf">61%</td>
+        <td class="tg-fll5">18</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Ma poule mouillée</td>
+        <td class="tg-za14">Restaurant</td>
+        <td class="tg-fll5">$10.00</td>
+        <td class="tg-mnw6">61%</td>
+        <td class="tg-fll5">19</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Ashton</td>
+        <td class="tg-za14">Diner</td>
+        <td class="tg-fll5">$5.50</td>
+        <td class="tg-9eyo">59%</td>
+        <td class="tg-fll5">20</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">St-Sacrement</td>
+        <td class="tg-za14">Pub</td>
+        <td class="tg-fll5">$8.50</td>
+        <td class="tg-jm3j">55%</td>
+        <td class="tg-fll5">21</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">La Belle Province</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$6.25</td>
+        <td class="tg-075r">55%</td>
+        <td class="tg-fll5">22</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Poutine Laurier</td>
+        <td class="tg-za14">Restaurant</td>
+        <td class="tg-fll5">$6.25</td>
+        <td class="tg-bhg5">53%</td>
+        <td class="tg-fll5">23</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Burger King</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$5.30</td>
+        <td class="tg-uwdx">53%</td>
+        <td class="tg-fll5">24</td>
+      </tr>
+      <tr>
+        <td class="tg-0thz">Valentine</td>
+        <td class="tg-za14">Fast Food</td>
+        <td class="tg-fll5">$5.30</td>
+        <td class="tg-z733">49%</td>
+        <td class="tg-fll5">25</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div id="map"
+       style="flex-grow: 1; height: 680px;"
+       data-markers="<%= @markers.to_json %>"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+</div>
