@@ -1,6 +1,9 @@
-a = RestaurantCategory.where(name: 'Normal').first
-a.name = 'Restaurant'
-a.save
+Restaurant.all.each do |restaurant|
+  if restaurant.json_address.nil?
+    restaurant.json_address =  Geocoder.search(restaurant.address).first
+    restaurant.save
+  end
+end
 # # DATA
 # puts 'destroying users...'
 # User.destroy_all
