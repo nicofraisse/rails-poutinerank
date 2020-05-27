@@ -42,7 +42,13 @@
         <td><%= i + 1 %></td>
         <td class="text-left"><%= link_to restaurant.name, restaurant_path(restaurant) %></td>
         <td class="text-left">
-          <%= restaurant.json_address['data']['address']['city'] unless restaurant.json_address.nil? %>
+          <% unless restaurant.json_address.nil? %>
+            <% if restaurant.json_address['data']['address']['city'].nil? %>
+              <%= restaurant.json_address['data']['address']['municipality'] %>
+            <% else %>
+              <%= restaurant.json_address['data']['address']['city'] %>
+            <% end %>
+          <% end %>
         </td>
         <td class="text-right" style="white-space:nowrap"><%= restaurant.poutine_price %></td>
         <td class="text-left"><%= restaurant.restaurant_category.name %></td>
