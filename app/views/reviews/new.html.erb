@@ -1,7 +1,7 @@
 <h1 class="text-center mt-4 mb-5">Laisser son avis</h1>
 <div class="container d-flex justify-content-center align-items-center">
   <% if @restaurant.photo.attached? %>
-    <%= cl_image_tag restaurant.photo.key, class: "img-circle m-4" %>
+    <%= cl_image_tag @restaurant.photo.key, class: "img-circle m-4" %>
   <% else %>
     <%= image_tag 'https://previews.123rf.com/images/sudowoodo/sudowoodo1701/sudowoodo170100010/68834656-poutine-traditional-canadian-food-from-quebec-potato-french-fries-with-gravy-and-cheese-curds-isolat.jpg', class: "img-circle m-4" %>
   <% end %>

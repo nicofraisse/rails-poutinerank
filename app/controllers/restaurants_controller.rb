@@ -7,8 +7,7 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.all
     end
 
-    @restaurants_sorted = @restaurants.sort_by{|restaurant| restaurant.reviews.map{ |r| zero_if_nan(r.global_rating) + zero_if_nan(r.fries_rating) + zero_if_nan(r.cheese_rating) + zero_if_nan(r.sauce_rating) + zero_if_nan(r.service_rating) }.sum}.reverse
-
+    @restaurants_sorted = @restaurants.sort_by{|restaurant| restaurant.reviews.map{ |r| zero_if_nan(r.global_rating) + zero_if_nan(r.fries_rating) + zero_if_nan(r.cheese_rating) + zero_if_nan(r.sauce_rating) + zero_if_nan(r.service_rating) }.sum / (restaurant.reviews.blank? ? 1 : restaurant.reviews.count) }.reverse
     respond_to do |format|
       format.html
       format.json { render json: { restaurants: @restaurants } }

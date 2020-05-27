@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
       redirect_to restaurant_path(@restaurant, anchor: "review-#{@review.id}")
     else
       @reviews = @restaurant.reviews
-      render 'restaurants/show'
+      render :new
     end
   end
 

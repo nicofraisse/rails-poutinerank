@@ -43,7 +43,7 @@
     <% @restaurants_sorted.each_with_index do |restaurant, i| %>
       <tr>
         <td><%= i + 1 %></td>
-        <td><%= restaurant.reviews.map{ |r| zero_if_nan(r.global_rating) + zero_if_nan(r.fries_rating) + zero_if_nan(r.cheese_rating) + zero_if_nan(r.sauce_rating) + zero_if_nan(r.service_rating) }.sum %></td>
+        <td><%= (restaurant.reviews.map{ |r| zero_if_nan(r.global_rating) + zero_if_nan(r.fries_rating) + zero_if_nan(r.cheese_rating) + zero_if_nan(r.sauce_rating) + zero_if_nan(r.service_rating) }.sum / (restaurant.reviews.blank? ? 1 : restaurant.reviews.count)).round(1) %></td>
         <td class="text-left"><%= link_to restaurant.name, restaurant_path(restaurant) %></td>
         <td class="text-left">
           <% unless restaurant.json_address.nil? %>
@@ -56,15 +56,15 @@
         </td>
         <td class="text-right" style="white-space:nowrap"><%= number_with_precision(restaurant.poutine_price.to_i, precision: 2) %></td>
         <td class="text-left"><%= restaurant.restaurant_category.name %></td>
-        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| r.fries_rating}.sum / restaurant.reviews.count.to_f).round(1) %></td>
-        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| r.cheese_rating}.sum / restaurant.reviews.count.to_f).round(1) %></td>
-        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| r.sauce_rating}.sum / restaurant.reviews.count.to_f).round(1) %></td>
-        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| r.service_rating}.sum / restaurant.reviews.count.to_f).round(1) %></td>
-        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| r.global_rating}.sum / restaurant.reviews.count.to_f).round(1) %></td>
+        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.fries_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
+        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.cheese_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
+        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.sauce_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
+        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.service_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
+        <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.global_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
         <td><%= restaurant.reviews.count %></td>
         <td><%= restaurant.reviews.map{|r| r.photos}.flatten.count %></td>
         <td class="text-left">
-          <%= link_to 'Review', new_restaurant_review_path(restaurant, @review) %> |
+          <%= link_to 'Review', new_restaurant_review_path(Restaurant.find(restaurant.id), @review) %> |
           <%= link_to 'Edit', edit_restaurant_path(restaurant) %> |
           <%= link_to 'Delete', restaurant_path(restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
         </td>
