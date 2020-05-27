@@ -29,7 +29,7 @@ $(document).ready(function () {
     "dom": '<"text-left ml-3 searchbar-index"f>',
     "oLanguage": {
        "sSearch": "Filtrer"
-     }
+    }
   });
   $('.dataTables_length').addClass('bs-select');
 });
