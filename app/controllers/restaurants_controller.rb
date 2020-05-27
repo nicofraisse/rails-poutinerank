@@ -6,6 +6,9 @@ class RestaurantsController < ApplicationController
     else
       @restaurants = Restaurant.all
     end
+
+    @restaurants_sorted = @restaurants.sort_by{|restaurant| restaurant.reviews.map{ |r| zero_if_nan(r.global_rating) + zero_if_nan(r.fries_rating) + zero_if_nan(r.cheese_rating) + zero_if_nan(r.sauce_rating) + zero_if_nan(r.service_rating) }.sum}.reverse
+
     respond_to do |format|
       format.html
       format.json { render json: { restaurants: @restaurants } }
@@ -67,6 +70,7 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
   def restaurant_address_params
     params.require(:restaurant).permit(:address)
   end
@@ -74,4 +78,10 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:restaurant_id, :name, :category, :address, :poutine_price, :photo, :restaurant_category_id)
   end
+
+  def zero_if_nan(x)
+    x.class == Integer || x.class == Float ? x : 0
+  end
+
+  helper_method :zero_if_nan
 end

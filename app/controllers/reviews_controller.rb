@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     authorize @review
-    @restaurant = Restaurant.new(id: params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
   def create
