@@ -54,7 +54,7 @@
             <% end %>
           <% end %>
         </td>
-        <td class="text-right" style="white-space:nowrap"><%= number_with_precision(restaurant.poutine_price.to_i, precision: 2) %></td>
+        <td class="text-right" style="white-space:nowrap"><%= number_with_precision(restaurant.poutine_price.to_f, precision: 2) %></td>
         <td class="text-left"><%= restaurant.restaurant_category.name %></td>
         <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.fries_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
         <td><%= restaurant.reviews.blank? ? 0 : (restaurant.reviews.map{|r| zero_if_nan(r.cheese_rating)}.sum / restaurant.reviews.count.to_f).round(1) %></td>
