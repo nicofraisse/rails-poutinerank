@@ -41,7 +41,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:global_rating, :poutine_category_id, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
+    params.require(:review).permit(:global_rating, :poutine_category_id, :service_rating, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
   end
 end
 

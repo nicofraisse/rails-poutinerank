@@ -4,3 +4,30 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.review_fries_rating > * {
+  // display: inline !important;
+
+}
+
+.review_fries_rating, .review_cheese_rating, .review_sauce_rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  margin-top: -8px;
+  width: 240px;
+  > * {
+    padding: 4px;
+    margin: 0 4px;
+  }
+  label:before {
+    content: "\2022\00A0"
+  }
+}
+
+.review_poutine_category {
+  label:before {
+    content: "Poutine\00A0"
+  }
+}

@@ -25,7 +25,12 @@
       <% else %>
         <% @reviews.each do |review| %>
           <div class="card p-3" id="review-<%= review.id %>">
-            <div>rating: <%= review.global_rating %></div>
+            <div>Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %></div>
+            <div>Note globale: <%= review.global_rating %></div>
+            <div>Frites: <%= review.fries_rating %></div>
+            <div>Fromage: <%= review.cheese_rating %></div>
+            <div>Sauce: <%= review.sauce_rating %></div>
+            <div>Service: <%= review.service_rating %></div>
             <div>title: <%= review.title %></div>
             <div>body: <%= review.body %></div>
             <div>upvotes: <%= review.upvotes %></div>

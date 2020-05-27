@@ -9,8 +9,22 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import 'mapbox-gl/dist/mapbox-gl';
+@import "jquery-bar-rating/dist/themes/bars-1to10";
+@import "jquery-bar-rating/dist/themes/bars-horizontal";
+@import "jquery-bar-rating/dist/themes/bars-movie";
+@import "jquery-bar-rating/dist/themes/bars-pill";
+@import "jquery-bar-rating/dist/themes/bars-reversed";
+@import "jquery-bar-rating/dist/themes/bars-square";
+@import "jquery-bar-rating/dist/themes/bootstrap-stars";
+@import "jquery-bar-rating/dist/themes/bars-square";
+@import "jquery-bar-rating/dist/themes/fontawesome-stars-o";
+@import "jquery-bar-rating/dist/themes/fontawesome-stars";
+
+@import "jquery-bar-rating/dist/themes/css-stars";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
 @import "layout";
+
+
