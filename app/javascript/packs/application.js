@@ -24,16 +24,15 @@ document.addEventListener('turbolinks:load', () => {
 
 // For the searchable/sortable table
 $(document).ready(function () {
-$('#table-index').DataTable({
-  "lengthChange": false,
-  "dom": '<"text-left ml-3 searchbar-index"f>',
-  "oLanguage": {
-     "sSearch": "Filtrer"
-   }
+  $('#table-index').DataTable({
+    "lengthChange": false,
+    "dom": '<"text-left ml-3 searchbar-index"f>',
+    "oLanguage": {
+       "sSearch": "Filtrer"
+     }
 
-});
-$('.dataTables_length').addClass('bs-select');
-
+  });
+  $('.dataTables_length').addClass('bs-select');
 });
 
 
