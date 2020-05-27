@@ -53,6 +53,8 @@ class RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:id])
     authorize @restaurant
+    @restaurant.json_address = Geocoder.search(@restaurant.address).first if @restaurant.json_address.nil?
+    @restaurant.save
     @restaurant.update(restaurant_params)
     redirect_to restaurant_path(@restaurant)
   end
