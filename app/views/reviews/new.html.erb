@@ -1,15 +1,30 @@
-<h1 class="text-center my-4">Laisser son avis</h1>
-
-<div class="container">
+<h1 class="text-center mt-4 mb-5">Laisser son avis</h1>
+<div class="container mb-5">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-      <%= simple_form_for([@restaurant, @review]) do |f| %>
-        <%= f.input :global_rating %>
-        <%= f.input :title %>
-        <%= f.input :body %>
-        <%= f.association :poutine_category, input_html: { class: "" }, include_hidden: false, as: :radio_buttons %>
+    <div class="col-12 col-md-8 col-lg-6 form-new-review">
+      <%= simple_form_for([@restaurant, @review], html: { autocomplete: 'off' }) do |f| %>
+        <%= f.input :global_rating, collection: (1..10).to_a, label: "Ta note globale" %>
+        <div class="my-4">
+        <%= f.input :title, label: "Titre de ton avis", placeholder: "Super poutine!" %>
+        <%= f.input :body, label: "Ton avis", placeholder: "My god, par où commencer... Poutine avec moitié fromage en grain et moitié râpé?! Pas fraîche, médiocre Hamburger au poulet avec une galette de poulet pané, style junior au poulet du mcdo! J'ai vu la sueur du cuisinier tomber dans la Poutine du client avant moi. J'ai eu le haut le cœur... sérieusement, la mapaq débarque et c'est des amendes assurées.", :input_html => {:rows => 7} %>
+        </div>
+        <div class="ml-3 my-4">
+        <p>Clique pour noter les <b>ingrédients</b>:
+        <%= f.input :fries_rating, collection: (1..5).to_a, label: "Frites" %>
+        <%= f.input :cheese_rating, collection: (1..5).to_a, label: "Fromage" %>
+        <%= f.input :sauce_rating, collection: (1..5).to_a, label: "Sauce" %>
+        </div>
+        <div class="my-4">
+        <%= f.input :service_rating, label: "Qu'as-tu pensé du <b>service</b>?".html_safe, collection: (1..5).to_a %>
+        </div>
+        <div class="my-4">
+        <%= f.association :poutine_category, label:"Le <b>type de poutine</b> que tu as noté".html_safe,include_hidden: false, as: :radio_buttons %>
+        </div>
+        <div class="my-4">
         <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-        <%= f.submit "Rate poutine", class: "btn btn-primary" %>
+        </div>
+        <%= f.submit "Envoyer ton avis", class: "btn btn-dark my-3" %>
+        <%= link_to "Annuler", restaurant_path(@restaurant), class: "btn btn-light ml-2" %>
       <% end %>
     </div>
   </div>

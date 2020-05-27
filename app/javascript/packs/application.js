@@ -16,8 +16,10 @@ require('datatables.net-bs4')
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import "controllers"
+import { initStarRating } from '../plugins/init_star_rating';
 
 document.addEventListener('turbolinks:load', () => {
+  initStarRating();
   initMapbox();
   initAutocomplete();
 })
