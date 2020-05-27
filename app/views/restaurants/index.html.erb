@@ -1,6 +1,6 @@
 <h1 class="my-4 text-center">Restaurants</h1>
 
-<div class="container my-4">
+<!-- <div class="container my-4">
   <div class="row justify-content-center">
     <div class="col-12 col-sm-8 col-md-6 col-xl-4">
       <%= form_tag restaurants_path, method: :get do %>
@@ -15,27 +15,22 @@
       <% end %>
     </div>
   </div>
-</div>
+</div> -->
 
 
-<table class="table-index">
+<table id="table-index" class="table-index table-striped table-bordered ">
   <thead>
     <tr>
-      <th>Rang</th>
+      <th class="th-sm">Rang</th>
       <th class="text-left">Nom</th>
       <th class="text-left">Ville</th>
       <th class="text-right">Prix</th>
       <th class="text-left">Type</th>
-
-
-
-
       <th>Frites</th>
       <th>Fromage</th>
       <th>Sauce</th>
       <th>Service</th>
       <th>Globale</th>
-      <th>Nb. visites</th>
       <th>Nb. avis</th>
       <th>Nb. photos</th>
       <th <td class="text-left">Action</th>
@@ -47,16 +42,15 @@
         <td><%= i + 1 %></td>
         <td class="text-left"><%= link_to restaurant.name, restaurant_path(restaurant) %></td>
         <td class="text-left">
-          <%= Geocoder.search(restaurant.address).first.city unless Geocoder.search(restaurant.address).blank? %>
+          <%= restaurant.json_address['data']['address']['city'] unless restaurant.json_address.nil? %>
         </td>
-        <td class="text-right" style="white-space:nowrap"><%= restaurant.poutine_price %> $</td>
+        <td class="text-right" style="white-space:nowrap"><%= restaurant.poutine_price %></td>
         <td class="text-left"><%= restaurant.restaurant_category.name %></td>
         <td><%= rand(1..10) %></td>
         <td><%= rand(1..10) %></td>
         <td><%= rand(1..10) %></td>
         <td><%= rand(1..10) %></td>
         <td><%= rand(1..10) %></td>
-        <td><%= rand(0..1100) %></td>
         <td><%= rand(0..70) %></td>
         <td><%= rand(0..40) %></td>
         <td class="text-left">
@@ -70,6 +64,7 @@
 
 
 <style type="text/css">
+
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
   overflow:hidden;padding:3px 12px;word-break:normal;}

@@ -8,12 +8,7 @@
   </div>
 </div>
 
-
-
 <h2 class="text-center my-3">Palmarès</h2>
-
-
-
 
 <table class="table-podium table">
   <% @restaurants.take(9).each_with_index do |restaurant, i| %>
@@ -36,12 +31,11 @@
       <td colspan="12">
         <div class="collapse" id="collapse-<%= i %>">
           <div class="p-2">
-            <div>ID: <%= restaurant.id %></div>
             <div>Catégorie: <%= restaurant.restaurant_category.name %></div>
             <div>Prix de la poutine classique: <%= restaurant.poutine_price %> $ (avant taxes)</div>
             <div>Addresse: <%= restaurant.address %></div>
 
-            <div class="container-fluid">
+            <div class="container-fluid my-3">
               <div id="carousel-example-<%= i %>" class="carousel carousel-<%= i %> slide" data-interval="false" data-ride="carousel-example-<%= i %>">
 
                 <div class="carousel-inner c-<%= i %> row w-100 mx-auto" role="listbox">
@@ -81,33 +75,7 @@
 
 <script>
 
-  var numberOfCarousels = $('.carousel').length
-  console.log(numberOfCarousels)
-  console.log('page is here')
-  console.log('hi')
 
-  for (let i = 0; i < numberOfCarousels; i++) {
-    $(`#carousel-example-${i}`).on(`slide.bs.carousel`, function (e) {
-      var $e = $(e.relatedTarget);
-      var idx = $e.index();
-      var itemsPerSlide = 4;
-      var totalItems = this.querySelectorAll('.carousel-item').length;
-
-      console.log(idx, itemsPerSlide, totalItems)
-      if (idx >= totalItems - (itemsPerSlide - 1)) {
-        var it = itemsPerSlide - (totalItems - idx);
-        for (var j=0; j< it ; j++) {
-          // append slides to end
-          if (e.direction == "left") {
-            $(`.ci-${i}`).eq(j).appendTo(`.c-${i}`);
-          }
-          else {
-            $(`.ci-${i}`).eq(0).appendTo(`.c-${i}`);
-          }
-        }
-      }
-    });
-  }
 
 
 </script>

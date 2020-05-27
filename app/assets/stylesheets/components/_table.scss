@@ -2,9 +2,9 @@
   margin: 64px auto;
   width: 100vw;
   th, td {
-    padding: 8px;
+    padding: 4px;
   }
-
+  position: relative;
   th {
     height: 40px;
     verical-align: middle;
@@ -16,7 +16,7 @@
     transition: 0.05s;
     text-align: center;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba(0, 0, 0, 0.1) !important;;
     }
   }
 }
@@ -25,4 +25,15 @@
   .table-index {
     max-width: 1440px;
   }
+}
+
+@media (max-width: $LG) {
+  .table-index {
+    font-size: 14px;
+  }
+}
+
+.searchbar-index {
+  // position: absolute;
+  margin-bottom: -40px;
 }
