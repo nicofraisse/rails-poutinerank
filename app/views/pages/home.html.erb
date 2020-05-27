@@ -23,7 +23,13 @@
     <td>#<%= i + 1 %></td>
       <td class="w-100"><%= restaurant.name %></td>
       <td>
-        <%= restaurant.json_address['data']['address']['city'] unless restaurant.json_address.nil? %>
+        <% unless restaurant.json_address.nil? %>
+          <% if restaurant.json_address['data']['address']['city'].nil? %>
+            <%= restaurant.json_address['data']['address']['municipality'] %>
+          <% else %>
+            <%= restaurant.json_address['data']['address']['city'] %>
+          <% end %>
+        <% end %>
       </td>
       <td>94%</td>
     </tr>
