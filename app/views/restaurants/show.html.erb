@@ -48,26 +48,47 @@
               <div>
                 Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %>
               </div>
-              <div>
-                upvotes: <%= review.upvotes %>
+
+              <h3><%= review.upvotes %></h3>
+              <div class="form-review-upvotes">
+                <%= simple_form_for(review, remote: true) do |f| %>
+                  <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
+                  <%= button_tag :submit,
+                  class: "btn-vote btn-upvote",
+                  name: "vote_type",
+                  value: "upvote",
+                  disabled: (true if review.user == current_user) do %>
+                    <i class="fas fa-thumbs-up"></i>
+                  <% end %>
+                  <%= button_tag :submit,
+                  class: "btn-vote btn-upvote",
+                  name: "vote_type",
+                  value: "downvote",
+                  disabled: (true if review.user == current_user) do %>
+                    <i class="fas fa-thumbs-down"></i>
+                  <% end %>
+                <% end %>
               </div>
+
               </div>
                 <div class="col-8 col-sm-9 col-lg-10 card-review-body">
-                  <h4><span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'><%= review.title %></h4>
+                  <h4>
+                    <span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'>
+                      <%= review.title %>
+                    </h4>
                   <div class="misc-ratings">
+                    <% if review.user == current_user %>
+                      <span class="mr-2">
+                        <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_review_path(review) %>
+                        <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
+                      </span>
+                    <% end %>
                     <span class='misc-rating'>Frites <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.fries_rating if review.fries_rating %></span>
                      - <span class='misc-rating'>Fromage <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.cheese_rating if review.cheese_rating %></span>
                      - <span class='misc-rating'>Sauce <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.sauce_rating if review.sauce_rating %></span>
                      - <span class='misc-rating'>Service <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.service_rating if review.service_rating %></span>
                   </div>
-
                   <p><%= review.body %></p>
-                    <% if review.user == current_user %>
-                    <div>
-                      <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_review_path(review) %>
-                      <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
-                    </div>
-                  <% end %>
                   <div class="review-photos">
                     <% review.photos.each do |photo| %>
                       <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>

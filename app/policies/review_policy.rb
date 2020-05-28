@@ -14,6 +14,6 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user
+    true
   end
 end

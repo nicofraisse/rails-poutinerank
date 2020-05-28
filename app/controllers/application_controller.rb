@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  before_action :set_counter
 
   include Pundit
   # Pundit: white-list approach.
@@ -19,7 +18,4 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
-  def set_counter
-    @restaurant_count = Restaurant.count
-  end
 end

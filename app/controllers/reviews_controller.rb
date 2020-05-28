@@ -1,5 +1,4 @@
 class ReviewsController < ApplicationController
-
   def new
     @review = Review.new
     authorize @review
@@ -7,7 +6,8 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = Review.new(review_params)
+    @review = Review.new(review_create_params)
+    @review.update(upvotes: 0)
     authorize @review
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review.restaurant = @restaurant
@@ -32,9 +32,16 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     authorize @review
 
-
-    if @review.update(review_params)
-      redirect_to restaurant_path(@review.restaurant_id, anchor: "review-#{@review.id}")
+    if @review.update(review_edit_params)
+      if params[:vote_type] == "upvote" && @review.user != current_user
+        @review.increment!(:upvotes)
+        @review.save
+      elsif params[:vote_type] == "downvote" && @review.user != current_user
+        @review.decrement!(:upvotes)
+        @review.save
+      else
+        redirect_to restaurant_path(@review.restaurant_id, anchor: "review-#{@review.id}")
+      end
     else
       @restaurant = Restaurant.find(@review.restaurant_id)
       render :edit
@@ -50,8 +57,16 @@ class ReviewsController < ApplicationController
 
   private
 
-  def review_params
+  def review_create_params
     params.require(:review).permit(:global_rating, :poutine_category_id, :service_rating, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
+  end
+
+  def review_edit_params
+    if @review.user == current_user
+      params.require(:review).permit(:global_rating, :poutine_category_id, :service_rating, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
+    else
+      params.require(:review).permit()
+    end
   end
 end
 

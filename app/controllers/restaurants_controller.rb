@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => [:index, :show]
+
   def index
     if params[:query].present?
       @restaurants = Restaurant.global_search(params[:query])
@@ -8,6 +9,7 @@ class RestaurantsController < ApplicationController
     end
 
     @restaurants_sorted = @restaurants.sort_by{|restaurant| restaurant.reviews.map{ |r| zero_if_nan(r.global_rating) + zero_if_nan(r.fries_rating) + zero_if_nan(r.cheese_rating) + zero_if_nan(r.sauce_rating) + zero_if_nan(r.service_rating) }.sum / (restaurant.reviews.blank? ? 1 : restaurant.reviews.count) }.reverse
+
     respond_to do |format|
       format.html
       format.json { render json: { restaurants: @restaurants } }
@@ -17,7 +19,7 @@ class RestaurantsController < ApplicationController
       {
         lat: restaurant.latitude,
         lng: restaurant.longitude,
-        infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
+        # infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
       }
     end
   end
@@ -26,8 +28,13 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     authorize @restaurant
     @review = Review.new
-    @reviews = @restaurant.reviews if @restaurant.reviews
+    @reviews = @restaurant.reviews.sort_by{|r| r.upvotes}.reverse if @restaurant.reviews
 
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { upvotes: @restaurant.reviews.first.upvotes } }
+    end
   end
 
   def new
