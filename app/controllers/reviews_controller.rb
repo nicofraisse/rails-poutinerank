@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+
   def new
     @review = Review.new
     authorize @review
@@ -22,13 +23,22 @@ class ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     authorize @review
+
+    @restaurant = Restaurant.find(@review.restaurant_id)
+    authorize @restaurant
   end
 
   def update
     @review = Review.find(params[:id])
     authorize @review
-    @review.update(review_params)
-    redirect_to restaurant_path(@review.restaurant_id)
+
+
+    if @review.update(review_params)
+      redirect_to restaurant_path(@review.restaurant_id, anchor: "review-#{@review.id}")
+    else
+      @restaurant = Restaurant.find(@review.restaurant_id)
+      render :edit
+    end
   end
 
   def destroy

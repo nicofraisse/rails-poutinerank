@@ -6,6 +6,9 @@
     color: white;
     background-color: #4938ab;
   }
+  &:visited {
+    color: white;
+  }
 }
 
 .btn-secondary-action {
@@ -13,6 +16,10 @@
   background: rgba(255, 255, 255, 0.9);
   margin: 6px;
   &:hover {
+    color: #4938ab;
+    background: rgba(255, 255, 255, 0.95);
+  }
+  &:visited {
     color: #4938ab;
   }
 }

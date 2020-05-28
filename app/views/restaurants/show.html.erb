@@ -1,45 +1,80 @@
-<h1 class="text-center my-4">Restaurant</h1>
+<div class="banner-restaurant">
+  <div class="banner-restaurant-photos">
+    <% @restaurant.reviews.map{ |r| r.photos.all }.flatten.take(3).each do |photo| %>
+      <%= cl_image_tag photo.key, crop: :fill %>
+    <% end %>
+  </div>
+  <div class="container-md">
+    <div class="card-parallax">
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-
-      <h2 class="text-center">Nom: <%= @restaurant.name %></h2>
-      <div>ID: <%= @restaurant.id %></div>
-      <div>Catégorie: <%= @restaurant.restaurant_category.name %></div>
-      <div>Prix de la poutine classique: <%= @restaurant.poutine_price %> $ (avant taxes)</div>
-      <div>Addresse: <%= @restaurant.address %></div>
-      <%= cl_image_tag @restaurant.photo.key, height: 160, width: 240, crop: :fill unless @restaurant.photo.blank? %>
-      <div>
-        <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
-
-      </div>
-      <%= link_to 'Delete', restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+      <h1><%= @restaurant.name %></h1>
+      <div><%= @restaurant.address %></div>
+      <span><%= @restaurant.restaurant_category.name %></span> -
+      <span><%= @restaurant.poutine_price %> $ (poutine classique)</span><br>
+      <span style="color: rgba(0, 0, 0, 0.6); font-size: 13px;">Frites <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+      <span style="color: rgba(0, 0, 0, 0.6); font-size: 13px;">Fromage <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+      <span style="color: rgba(0, 0, 0, 0.6); font-size: 13px;">Sauce <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+      <span style="color: rgba(0, 0, 0, 0.6); font-size: 13px;">Service <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
       <br>
+      <%= link_to 'Donne ton avis', new_restaurant_review_path(@restaurant, @review), class: "btn btn-main-action" %>
+      <% if @restaurant.user == current_user %>
+        <div>
+          <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_restaurant_path(@restaurant) %>
+          <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-      <h3 class="text-center">Avis</h3>
-
-      <div id="reviews">
+<h2 class="text-center my-3">Avis</h2>
+<div class="container-md">
+  <div class="row justify-content-center">
+    <div class="col-12 review-container">
       <% if @reviews.blank? %>
-        <p>Be the first to review this restaurant!</p>
+        <p>Sois la première personne à donner ton opinion sur leur poutine!</p>
       <% else %>
         <% @reviews.each do |review| %>
-          <div class="card p-3" id="review-<%= review.id %>">
-            <div>Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %></div>
-            <div>Note globale: <%= review.global_rating %></div>
-            <div>Frites: <%= review.fries_rating %></div>
-            <div>Fromage: <%= review.cheese_rating %></div>
-            <div>Sauce: <%= review.sauce_rating %></div>
-            <div>Service: <%= review.service_rating %></div>
-            <div>title: <%= review.title %></div>
-            <div>body: <%= review.body %></div>
-            <div>upvotes: <%= review.upvotes %></div>
-            <%= link_to 'Edit', edit_review_path(review) %>
-            <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
-            <div>
-              <% review.photos.each do |photo| %>
-                <%= cl_image_tag photo.key, height: 160, width: 240, crop: :fill %>
-              <% end %>
+          <div class="card-review">
+            <div class="container-md">
+            <div class="row">
+            <div class="col-4 col-sm-3 col-lg-2 card-review-info text-center">
+              <div>
+                <%= cl_image_tag review.user.photo.key, class: "img-circle" if review.user.photo.attached? %>
+              </div>
+              <div>
+                <%= review.user.first_name %>
+              </div>
+              <div>
+                Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %>
+              </div>
+              <div>
+                upvotes: <%= review.upvotes %>
+              </div>
+              </div>
+                <div class="col-8 col-sm-9 col-lg-10 card-review-body">
+                  <h4><span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'><%= review.title %></h4>
+                  <div class="misc-ratings">
+                    <span class='misc-rating'>Frites <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.fries_rating if review.fries_rating %></span>
+                     - <span class='misc-rating'>Fromage <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.cheese_rating if review.cheese_rating %></span>
+                     - <span class='misc-rating'>Sauce <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.sauce_rating if review.sauce_rating %></span>
+                     - <span class='misc-rating'>Service <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.service_rating if review.service_rating %></span>
+                  </div>
+
+                  <p><%= review.body %></p>
+                    <% if review.user == current_user %>
+                    <div>
+                      <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_review_path(review) %>
+                      <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
+                    </div>
+                  <% end %>
+                  <div class="review-photos">
+                    <% review.photos.each do |photo| %>
+                      <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <br>
@@ -48,7 +83,7 @@
       </div>
       <tr>
 
-      <%= link_to 'Donner son avis', new_restaurant_review_path(@restaurant, @review), class: "btn btn-main-action" %>
+      <%= link_to 'Donne ton avis', new_restaurant_review_path(@restaurant, @review), class: "btn btn-main-action" %>
 
     </div>
   </div>
