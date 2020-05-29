@@ -5,7 +5,7 @@
 
 
 
-require("@rails/ujs").start()
+// require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
@@ -25,7 +25,7 @@ document.addEventListener('turbolinks:load', () => {
 })
 
 // For the searchable/sortable table
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   $('#table-index').DataTable({
     "lengthChange": false,
     "dom": '<"text-left ml-3 searchbar-index"f>',
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 
 // For the homepager carousel
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   var numberOfCarousels = $('.carousel').length
   for (let i = 0; i < numberOfCarousels; i++) {
     $(`#carousel-example-${i}`).on(`slide.bs.carousel`, function (e) {
@@ -64,7 +64,7 @@ $(document).ready(function () {
 });
 
 // For updating the review like button
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   document.querySelectorAll('.card-review-info-personal').forEach((pack) => {
 
     pack.querySelector('.btn-upvote').addEventListener(('click'), (e) => {
