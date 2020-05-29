@@ -59,3 +59,19 @@
   display: none;
 }
 
+.container {
+  max-width: 1320px;
+}
+
+.complete{
+  display:none;
+}
+
+.more{
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 3px 6px;
+  cursor:pointer;
+}
+

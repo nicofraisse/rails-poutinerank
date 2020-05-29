@@ -1,15 +1,15 @@
 
 <div class="main-banner">
   <h1 class="text-white text-center mt-5">Poutine Podium</h1>
-  <p class="text-white text-center">Le site où l'on critique sa poutine.</p>
+  <p class="text-white text-center">Le site des connaisseurs de poutine.</p>
   <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row my-4">
   <%= link_to 'Noter une poutine', root_path, class: "btn btn-main-action" %>
   <%= link_to 'Tous les restaurants', restaurants_path, class: "btn btn-secondary-action" %>
   </div>
 </div>
 
-<h2 class="text-center my-3">Palmarès</h2>
-
+<h2 class="text-center my-3">TOP 10 POUTINES</h2>
+<div class="container">
 <table class="table-podium table">
   <% @restaurants.take(9).each_with_index do |restaurant, i| %>
     <tr data-toggle="collapse" data-target="#collapse-<%= i %>" class="table-podium-header">
@@ -69,6 +69,7 @@
     </tr>
   <% end %>
 </table>
+</div>
 
 <h2 class="text-center my-3">Derniers avis</h2>
 

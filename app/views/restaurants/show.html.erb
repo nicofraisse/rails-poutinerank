@@ -5,6 +5,7 @@
     <% end %>
   </div>
   <div class="container-md">
+
     <div class="card-parallax">
 
       <h1><%= @restaurant.name %></h1>
@@ -23,90 +24,118 @@
           <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
         </div>
       <% end %>
+      <button class="border w-100" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Plus d'infos
+      </button>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<h2 class="text-center my-3">Avis</h2>
-<div class="container-md">
-  <div class="row justify-content-center">
-    <div class="col-12 review-container">
-      <% if @reviews.blank? %>
-        <p>Sois la première personne à donner ton opinion sur leur poutine!</p>
-      <% else %>
-        <% @reviews.each do |review| %>
-          <div class="card-review">
-            <div class="container-md">
-            <div class="row">
-            <div class="col-4 col-sm-3 col-lg-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
-              <div>
-                <%= cl_image_tag review.user.photo.key, class: "img-circle" if review.user.photo.attached? %>
-              </div>
-              <div>
-                <%= review.user.first_name %>
-              </div>
-              <div>
-                Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %>
-              </div>
-
-              <h3 class="no-upvotes"><%= review.upvotes %></h3>
-              <% unless review.user == current_user %>
-                <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
-                  <%= simple_form_for(review, remote: true) do |f| %>
-                    <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
-                    <%= button_tag :submit,
-                    class: "btn-vote btn-upvote",
-                    name: "vote_type",
-                    value: "upvote",
-                    disabled: (true if review.user == current_user) do %>
-                      <i class="fas fa-thumbs-up"></i>
-                    <% end %>
-                    <%= button_tag :submit,
-                    class: "btn-vote btn-downvote",
-                    name: "vote_type",
-                    value: "downvote",
-                    disabled: (true if review.user == current_user) do %>
-                      <i class="fas fa-thumbs-down"></i>
-                    <% end %>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 col-xl-9">
+      <div class="review-container">
+        <div class="m-4 border-bottom">
+          <h2 class="text-lefft my-3">Avis</h2>
+        </div>
+        <% if @reviews.blank? %>
+          <p>Sois la première personne à donner ton opinion sur leur poutine!</p>
+        <% else %>
+          <% @reviews.each do |review| %>
+            <div class="card-review">
+              <div class="container-md">
+              <div class="row">
+              <div class="col-4 col-sm-3 col-lg-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
+                <div>
+                  <% if review.user.photo.attached? %>
+                    <%= cl_image_tag review.user.photo.key, class: "img-circle" %>
+                  <% else %>
+                    <%= image_tag 'person-placeholder.jpg', class: "img-circle" %>
                   <% end %>
                 </div>
-              <% end %>
-              </div>
-                <div class="col-8 col-sm-9 col-lg-10 card-review-body">
-                  <h4>
-                    <span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'>
-                      <%= review.title %>
-                    </h4>
-                  <div class="misc-ratings">
-                    <% if review.user == current_user %>
-                      <span class="mr-2">
-                        <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_review_path(review) %>
-                        <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
-                      </span>
+                <div>
+                  <%= review.user.first_name %>
+                </div>
+                <div>
+                  Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %>
+                </div>
+
+                <h3 class="no-upvotes"><%= review.upvotes %></h3>
+                <% unless review.user == current_user %>
+                  <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
+                    <%= simple_form_for(review, remote: true) do |f| %>
+                      <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
+                      <%= button_tag :submit,
+                      class: "btn-vote btn-upvote",
+                      name: "vote_type",
+                      value: "upvote",
+                      disabled: (true if review.user == current_user) do %>
+                        <i class="fas fa-thumbs-up"></i>
+                      <% end %>
+                      <%= button_tag :submit,
+                      class: "btn-vote btn-downvote",
+                      name: "vote_type",
+                      value: "downvote",
+                      disabled: (true if review.user == current_user) do %>
+                        <i class="fas fa-thumbs-down"></i>
+                      <% end %>
                     <% end %>
-                    <span class='misc-rating'>Frites <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.fries_rating if review.fries_rating %></span>
-                     - <span class='misc-rating'>Fromage <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.cheese_rating if review.cheese_rating %></span>
-                     - <span class='misc-rating'>Sauce <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.sauce_rating if review.sauce_rating %></span>
-                     - <span class='misc-rating'>Service <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.service_rating if review.service_rating %></span>
                   </div>
-                  <p><%= review.body %></p>
-                  <div class="review-photos">
-                    <% review.photos.each do |photo| %>
-                      <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>
-                    <% end %>
+                <% end %>
+                </div>
+                  <div class="col-8 col-sm-9 col-lg-10 card-review-body">
+                    <h4>
+                      <span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'>
+                        <%= review.title %>
+                      </h4>
+                    <div class="misc-ratings">
+                      <% if review.user == current_user %>
+                        <span class="mr-2">
+                          <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_review_path(review) %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, review_path(review), method: :delete, data: { confirm: "Are you sure?" } %>
+                        </span>
+                      <% end %>
+                      <span class='misc-rating'>Frites <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.fries_rating if review.fries_rating %></span>
+                       - <span class='misc-rating'>Fromage <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.cheese_rating if review.cheese_rating %></span>
+                       - <span class='misc-rating'>Sauce <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.sauce_rating if review.sauce_rating %></span>
+                       - <span class='misc-rating'>Service <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.service_rating if review.service_rating %></span>
+                    </div>
+
+
+
+
+                    <p>
+                      <span class="teaser">
+                        <%= truncate(review.body, :length => 120, :separator => ' ') %>
+                      </span>
+
+                      <span class="complete"><%= review.body %></span>
+                      <span class="more">more...</span>
+
+                    </p>
+                    <div class="review-photos">
+                      <% review.photos.each do |photo| %>
+                        <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <br>
+          <% end %>
         <% end %>
-      <% end %>
+        </div>
       </div>
       <tr>
 
-      <%= link_to 'Donne ton avis', new_restaurant_review_path(@restaurant, @review), class: "btn btn-main-action" %>
 
     </div>
+    <%= link_to 'Donne ton avis', new_restaurant_review_path(@restaurant, @review), class: "btn btn-main-action" %>
+
   </div>
 </div>

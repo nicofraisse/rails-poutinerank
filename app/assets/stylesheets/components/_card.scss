@@ -1,5 +1,4 @@
 .table-podium {
-  max-width: 1024px;
   color: rgb(30, 30, 30);
   margin: 0 auto;
   .table-podium-header {
@@ -46,6 +45,10 @@
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .card-review-body {
+    word-break: break-word;
   }
 }
 
