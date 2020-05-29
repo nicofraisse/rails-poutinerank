@@ -63,3 +63,22 @@ $(document).ready(function () {
   }
 });
 
+// For updating the review like button
+$(document).ready(function () {
+  document.querySelectorAll('.card-review-info-personal').forEach((pack) => {
+
+    pack.querySelector('.btn-upvote').addEventListener(('click'), (e) => {
+      console.log('YES')
+        pack.querySelector('.no-upvotes').innerHTML++;
+        pack.querySelector('.fa-thumbs-down').style.color = 'white';
+        setTimeout(() => { pack.querySelectorAll('button').forEach(b => b.disabled = true) }, 1);
+    }, { once: true })
+    pack.querySelector('.btn-downvote').addEventListener(('click'), (e) => {
+        pack.querySelector('.no-upvotes').innerHTML--;
+        pack.querySelector('.fa-thumbs-up').style.color = 'white';
+        setTimeout(() => { pack.querySelectorAll('button').forEach(b => b.disabled = true) }, 1);
+    }, { once: true })
+  })
+});
+
+

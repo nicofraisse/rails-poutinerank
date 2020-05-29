@@ -38,7 +38,7 @@
           <div class="card-review">
             <div class="container-md">
             <div class="row">
-            <div class="col-4 col-sm-3 col-lg-2 card-review-info text-center">
+            <div class="col-4 col-sm-3 col-lg-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
               <div>
                 <%= cl_image_tag review.user.photo.key, class: "img-circle" if review.user.photo.attached? %>
               </div>
@@ -49,27 +49,28 @@
                 Date de création: Le <%= review.created_at.to_s.split(' ')[0..1].join(' à ') %>
               </div>
 
-              <h3><%= review.upvotes %></h3>
-              <div class="form-review-upvotes">
-                <%= simple_form_for(review, remote: true) do |f| %>
-                  <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
-                  <%= button_tag :submit,
-                  class: "btn-vote btn-upvote",
-                  name: "vote_type",
-                  value: "upvote",
-                  disabled: (true if review.user == current_user) do %>
-                    <i class="fas fa-thumbs-up"></i>
+              <h3 class="no-upvotes"><%= review.upvotes %></h3>
+              <% unless review.user == current_user %>
+                <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
+                  <%= simple_form_for(review, remote: true) do |f| %>
+                    <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
+                    <%= button_tag :submit,
+                    class: "btn-vote btn-upvote",
+                    name: "vote_type",
+                    value: "upvote",
+                    disabled: (true if review.user == current_user) do %>
+                      <i class="fas fa-thumbs-up"></i>
+                    <% end %>
+                    <%= button_tag :submit,
+                    class: "btn-vote btn-downvote",
+                    name: "vote_type",
+                    value: "downvote",
+                    disabled: (true if review.user == current_user) do %>
+                      <i class="fas fa-thumbs-down"></i>
+                    <% end %>
                   <% end %>
-                  <%= button_tag :submit,
-                  class: "btn-vote btn-upvote",
-                  name: "vote_type",
-                  value: "downvote",
-                  disabled: (true if review.user == current_user) do %>
-                    <i class="fas fa-thumbs-down"></i>
-                  <% end %>
-                <% end %>
-              </div>
-
+                </div>
+              <% end %>
               </div>
                 <div class="col-8 col-sm-9 col-lg-10 card-review-body">
                   <h4>
