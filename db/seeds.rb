@@ -1,42 +1,42 @@
 
-# # DATA
-# puts 'destroying users...'
-# User.destroy_all
+# DATA
+puts 'destroying users...'
+User.destroy_all
 
-# puts 'destroying restaurants...'
-# Restaurant.destroy_all
+puts 'destroying restaurants...'
+Restaurant.destroy_all
 
-# puts 'destroying restaurant categories...'
-# RestaurantCategory.destroy_all
+puts 'destroying restaurant categories...'
+RestaurantCategory.destroy_all
 
-# puts 'creating god...'
-# god = User.create!(
-#   email: 'god@gmail.com',
-#   password: '123123',
-#   first_name: 'God'
-# )
+puts 'creating god...'
+god = User.create!(
+  email: 'god@gmail.com',
+  password: '123123',
+  first_name: 'God'
+)
 
-# restaurant_categories = [
-#   { name: 'Normal' },
-#   { name: 'Fast Food' },
-#   { name: 'Food Truck' }
-# ]
+restaurant_categories = [
+  { name: 'Normal' },
+  { name: 'Fast Food' },
+  { name: 'Food Truck' }
+]
 
-# poutine_categories = [
-#   { name: 'Classique' },
-#   { name: 'Spéciale' },
-#   { name: 'Végan' }
-# ]
+poutine_categories = [
+  { name: 'Classique' },
+  { name: 'Spéciale' },
+  { name: 'Végan' }
+]
 
-# restaurant_categories.each do |r_c|
-#   RestaurantCategory.create(r_c)
-#   puts 'created ' + r_c[:name] + ' restaurant category'
-# end
+restaurant_categories.each do |r_c|
+  RestaurantCategory.create(r_c)
+  puts 'created ' + r_c[:name] + ' restaurant category'
+end
 
-# poutine_categories.each do |p_c|
-#   PoutineCategory.create(p_c)
-#   puts 'created ' + p_c[:name] + ' poutine category'
-# end
+poutine_categories.each do |p_c|
+  PoutineCategory.create(p_c)
+  puts 'created ' + p_c[:name] + ' poutine category'
+end
 
 
 # restaurants = [

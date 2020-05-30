@@ -26,7 +26,7 @@
 
 .card-review {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 16px;
+  padding: 32px 0;
   .review-photos {
     width: 100%;
     max-width: 512px;
@@ -52,13 +52,6 @@
   }
 }
 
-
-
-
-
-
-
-
 @media (min-width: $SM) {
   .table-podium-header {
     font-size: 18px;
@@ -77,4 +70,9 @@
   .table-podium-header {
     font-size: 20px;
   }
+}
+
+.show-sidebar {
+  position: sticky;
+  top: 32px;
 }

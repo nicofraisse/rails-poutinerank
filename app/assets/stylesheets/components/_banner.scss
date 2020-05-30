@@ -56,7 +56,6 @@
     margin: 0;
     padding: 16px;
     box-shadow: none;
-    position: static;
     border-radius: none;
     border: 8px solid rgba(247, 216, 170, 1.00);
     box-sizing: border-box;
@@ -72,4 +71,10 @@
   .card-parallax {
     width: 100%;
   }
+}
+
+#rating-abs {
+  position: absolute;
+  top: 16px;
+  right: 8px;
 }
