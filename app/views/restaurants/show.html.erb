@@ -63,7 +63,7 @@
             <div class="card-review">
               <div class="container-md">
               <div class="row">
-              <div class="col-4 col-sm-3 col-lg-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
+              <div class="col-3 col-md-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
                 <div>
                   <% if review.user.photo.attached? %>
                     <%= cl_image_tag review.user.photo.key, class: "img-circle" %>
@@ -97,7 +97,7 @@
                   </div>
                 <% end %>
                 </div>
-                  <div class="col-8 col-sm-9 col-lg-10 card-review-body">
+                  <div class="col-9 col-md-10 card-review-body">
                     <h4>
                       <span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'>
                       <%= review.title %>
@@ -129,11 +129,24 @@
                       <% end %>
 
                     </p>
-                    <div class="review-photos">
-                      <% review.photos.each do |photo| %>
-                        <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>
-                      <% end %>
-                    </div>
+
+                    <% if review.photos.count.odd?%>
+                      <div class="review-photos review-photos-odd">
+                        <% review.photos.each do |photo| %>
+                          <div class="review-photo">
+                            <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% else  %>
+                      <div class="review-photos review-photos-even">
+                        <% review.photos.each do |photo| %>
+                          <div class="review-photo">
+                            <%= cl_image_tag photo.key, height: 480, width: 640, crop: :fill %>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               </div>

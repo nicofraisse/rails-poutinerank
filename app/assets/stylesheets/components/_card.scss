@@ -26,26 +26,23 @@
 
 .card-review {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 32px 0;
+  margin: 16px 0;
   .review-photos {
     width: 100%;
     max-width: 512px;
   }
 
-  .review-photos img {
-    border-radius: 4px;
-    margin: 16px;
-    width: 43%;
-    height: auto;
-    object-fit: cover;
-    float: right;
+  .review-photo {
+    padding: 0 24px 24px 0;
+    width: 100%;
+    img {
+      border-radius: 4px;
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+    }
   }
 
-  .review-photos img:first-child {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
 
   .card-review-body {
     word-break: break-word;
@@ -56,9 +53,34 @@
   .table-podium-header {
     font-size: 18px;
   }
-}
 
-@media (min-width: $MD) {
+  .review-photos {
+    width: 100%;
+    max-width: 512px;
+  }
+
+  .review-photo {
+    padding: 0 24px 24px 0;
+    width: calc(50% - 2px) !important;;
+    display: inline-block;
+    box-sizing: border-box;
+
+    img {
+      border-radius: 4px;
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .review-photos-odd .review-photo:first-child {
+    width: 100% !important;
+    img {
+      height: auto;
+      display: block;
+      margin: 0;
+    }
+  }
 
 }
 
