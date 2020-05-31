@@ -37,10 +37,10 @@
           <% unless @restaurant.reviews.blank? %>
             <p class="text-secondary mt-3">Moyenne:
               <span class='global-rating'><%= (@restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f).round(1) %>/10</span class='global-rating'>
-              <span class="text-secondary" style="font-size: 15px;">Frites <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
-              <span class="text-secondary" style="font-size: 15px;">Fromage <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
-              <span class="text-secondary" style="font-size: 15px;">Sauce <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
-              <span class="text-secondary" style="font-size: 15px;">Service <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+              <span class="text-secondary">Frites <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+              <span class="text-secondary">Fromage <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+              <span class="text-secondary">Sauce <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+              <span class="text-secondary">Service <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
             </p>
           <% end %>
 
@@ -61,7 +61,7 @@
           <% @reviews.each do |review| %>
             <div class="card-review">
               <div class="container-md">
-              <div class="row">
+              <div class="row justify-content-center">
               <div class="col-3 col-md-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
                 <div>
                   <% if review.user.photo.attached? %>
@@ -76,35 +76,41 @@
                 <div>
                   <%= review.user.reviews.count %> avis
                 </div>
-                <h3 class="no-upvotes"><%= review.upvotes %></h3>
-                <% unless review.user == current_user %>
-                  <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
-                    <%= simple_form_for(review, remote: true) do |f| %>
-                      <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
-                      <%= button_tag :submit,
-                      class: "btn-vote btn-upvote",
-                      name: "vote_type",
-                      value: "upvote",
-                      disabled: (true if review.user == current_user) do %>
-                        <i class="fas fa-thumbs-up"></i>
+                <div class="upvote-section">
+                  <% unless review.user == current_user %>
+                    <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
+                      <%= simple_form_for(review, remote: true) do |f| %>
+                        <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
+                        <%= button_tag :submit,
+                        class: "btn-vote btn-upvote",
+                        name: "vote_type",
+                        value: "upvote",
+                        disabled: (true if review.user == current_user) do %>
+                          <i class="fas fa-thumbs-up"></i>
+                        <% end %>
                       <% end %>
-                      <%= button_tag :submit,
-                      class: "btn-vote btn-downvote",
-                      name: "vote_type",
-                      value: "downvote",
-                      disabled: (true if review.user == current_user) do %>
-                        <i class="fas fa-thumbs-down"></i>
+                      <span class="no-upvotes"><%= review.upvotes %></span>
+                      <%= simple_form_for(review, remote: true) do |f| %>
+                        <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
+                        <%= button_tag :submit,
+                        class: "btn-vote btn-downvote",
+                        name: "vote_type",
+                        value: "downvote",
+                        disabled: (true if review.user == current_user) do %>
+                          <i class="fas fa-thumbs-down"></i>
+                        <% end %>
                       <% end %>
-                    <% end %>
+                    </div>
+                  <% end %>
+
                   </div>
-                <% end %>
                 </div>
                   <div class="col-9 col-md-10 card-review-body">
-                    <h4>
+                    <h3>
                       <span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'>
                       <%= review.title %>
-                    </h4>
-                    <div class="my-3">
+                    </h3>
+                    <p class="my-3">
                       <% if review.user == current_user %>
                         <span class="mr-2">
                           <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_review_path(review) %>
@@ -118,7 +124,7 @@
                          - <span class='misc-rating'>Sauce <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.sauce_rating if review.sauce_rating %></span>
                          - <span class='misc-rating'>Service <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * review.service_rating if review.service_rating %></span>
                       </span>
-                    </div>
+                    </p>
                     <p>
                       <% if review.body.length >= 1000 %>
                         <span class="teaser">

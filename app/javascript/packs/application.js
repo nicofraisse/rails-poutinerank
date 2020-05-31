@@ -66,18 +66,42 @@ $(document).on('turbolinks:load', function () {
 // For updating the review like button
 $(document).on('turbolinks:load', function () {
   document.querySelectorAll('.card-review-info-personal').forEach((pack) => {
-
+    var upvoted = false;
+    var downvoted = false;
     pack.querySelector('.btn-upvote').addEventListener(('click'), (e) => {
-      console.log('YES')
+      if (upvoted == false && downvoted == true) {
+        pack.querySelector('.no-upvotes').innerHTML = parseInt(pack.querySelector('.no-upvotes').innerHTML) + 2;
+        pack.querySelector('.btn-upvote').classList.add('upvoted');
+        pack.querySelector('.btn-downvote').classList.remove('downvoted');
+        upvoted = true;
+        downvoted = false;
+      } else if (upvoted == false && downvoted == false) {
         pack.querySelector('.no-upvotes').innerHTML++;
-        pack.querySelector('.fa-thumbs-down').style.color = 'white';
-        setTimeout(() => { pack.querySelectorAll('button').forEach(b => b.disabled = true) }, 1);
-    }, { once: true })
-    pack.querySelector('.btn-downvote').addEventListener(('click'), (e) => {
+        pack.querySelector('.btn-upvote').classList.add('upvoted');
+        upvoted = true;
+      } else if (upvoted == true && downvoted == false) {
         pack.querySelector('.no-upvotes').innerHTML--;
-        pack.querySelector('.fa-thumbs-up').style.color = 'white';
-        setTimeout(() => { pack.querySelectorAll('button').forEach(b => b.disabled = true) }, 1);
-    }, { once: true })
+        pack.querySelector('.btn-upvote').classList.remove('upvoted');
+        upvoted = false;
+      }
+    })
+    pack.querySelector('.btn-downvote').addEventListener(('click'), (e) => {
+      if (downvoted == false && upvoted == true) {
+        pack.querySelector('.no-upvotes').innerHTML -= 2;
+        pack.querySelector('.btn-downvote').classList.add('downvoted');
+        pack.querySelector('.btn-upvote').classList.remove('upvoted');
+        downvoted = true;
+        upvoted = false;
+      } else if (downvoted == false && upvoted == false) {
+        pack.querySelector('.no-upvotes').innerHTML--;
+        pack.querySelector('.btn-downvote').classList.add('downvoted');
+        downvoted = true;
+      } else if (downvoted == true && upvoted == false) {
+        pack.querySelector('.no-upvotes').innerHTML++;
+        pack.querySelector('.btn-downvote').classList.remove('downvoted');
+        downvoted = false;
+      }
+    })
   })
 });
 
