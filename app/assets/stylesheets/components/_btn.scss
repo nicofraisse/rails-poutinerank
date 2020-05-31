@@ -62,7 +62,39 @@
   }
 }
 
-.btn-vote {
-
+.btn-onimage {
+  color: white;
+  border: 2px solid white;
+  padding: 6px 8px;
+  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 400;
+  &:hover {
+    color: white;
+    opacity: 1 !important;
+  }
 }
 
+@media (max-width: $MD) {
+  .btn-onimage {
+    left: auto;
+    top: auto;
+    right: 32px;
+    bottom: -64px;
+    z-index: 20000;
+    transform: translate(0, 0);
+    opacity: 0.85;
+    color: black;
+    border: 1px solid black;
+    &:hover {
+      color: black;
+    }
+
+  }
+
+}

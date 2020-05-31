@@ -1,5 +1,7 @@
 <div class="banner-restaurant">
   <div class="banner-restaurant-photos">
+    <div class="restaurant-photos-filter"></div>
+    <a href="#" class="btn btn-onimage"><i class="fas fa-camera"></i> Toutes les photos</a>
     <% if @restaurant.reviews.map{ |r| r.photos.all }.flatten.count > 2 %>
       <% @restaurant.reviews.map{ |r| r.photos.all }.flatten.take(3).each do |photo| %>
         <%= cl_image_tag photo.key, crop: :fill %>
@@ -16,7 +18,6 @@
       <div><%= @restaurant.address %></div>
       <span><%= @restaurant.restaurant_category.name %></span> -
       <span><%= @restaurant.poutine_price %> $ (poutine classique)</span><br>
-      <br>
       <% if @restaurant.user == current_user %>
         <div>
           <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_restaurant_path(@restaurant) %>
@@ -35,9 +36,7 @@
           <h2>Avis (<%= @restaurant.reviews.count %>)</h2>
           <% unless @restaurant.reviews.blank? %>
             <p class="text-secondary mt-3">Moyenne:
-              <span class='global-rating'>
-                <%= (@restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f).round(1) %>/10
-              </span class='global-rating'>
+              <span class='global-rating'><%= (@restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f).round(1) %>/10</span class='global-rating'>
               <span class="text-secondary" style="font-size: 15px;">Frites <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
               <span class="text-secondary" style="font-size: 15px;">Fromage <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
               <span class="text-secondary" style="font-size: 15px;">Sauce <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
@@ -72,7 +71,10 @@
                   <% end %>
                 </div>
                 <div>
-                  <%= review.user.first_name %>
+                  <%= review.user.first_name %> <%= review.user.last_name %>
+                </div>
+                <div>
+                  <%= review.user.reviews.count %> avis
                 </div>
                 <h3 class="no-upvotes"><%= review.upvotes %></h3>
                 <% unless review.user == current_user %>
