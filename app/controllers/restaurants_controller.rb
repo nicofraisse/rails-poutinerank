@@ -19,7 +19,7 @@ class RestaurantsController < ApplicationController
       {
         lat: restaurant.latitude,
         lng: restaurant.longitude,
-        # infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
+        infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
       }
     end
   end
@@ -29,8 +29,13 @@ class RestaurantsController < ApplicationController
     authorize @restaurant
     @review = Review.new
     @reviews = @restaurant.reviews.sort_by{|r| r.upvotes}.reverse if @restaurant.reviews
-
-
+    @markers = [@restaurant].map do |restaurant|
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
+        infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
+      }
+    end
     respond_to do |format|
       format.html
       format.json { render json: { upvotes: @restaurant.reviews.first.upvotes } }
