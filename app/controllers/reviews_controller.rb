@@ -34,11 +34,29 @@ class ReviewsController < ApplicationController
 
     if @review.update(review_edit_params)
       if params[:vote_type] == "upvote" && @review.user != current_user
-        @review.increment!(:upvotes)
-        @review.save
+        if params[:review]["up_enabled"] == "true"
+          @review.increment!(:upvotes)
+          @review.save
+        elsif params[:review]["up_enabled"] == "trueSpam"
+          @review.decrement!(:upvotes)
+          @review.save
+        elsif params[:review]["up_enabled"] == "trueChangedMyMind"
+          @review.increment!(:upvotes)
+          @review.increment!(:upvotes)
+          @review.save
+        end
       elsif params[:vote_type] == "downvote" && @review.user != current_user
-        @review.decrement!(:upvotes)
-        @review.save
+        if params[:review]["down_enabled"] == "true"
+          @review.decrement!(:upvotes)
+          @review.save
+        elsif params[:review]["down_enabled"] == "trueSpam"
+          @review.increment!(:upvotes)
+          @review.save
+        elsif params[:review]["down_enabled"] == "trueChangedMyMind"
+          @review.decrement!(:upvotes)
+          @review.decrement!(:upvotes)
+          @review.save
+        end
       else
         redirect_to restaurant_path(@review.restaurant_id, anchor: "review-#{@review.id}")
       end
@@ -58,7 +76,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_create_params
-    params.require(:review).permit(:global_rating, :poutine_category_id, :service_rating, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
+    params.require(:review).permit(:down_enabled, :up_enabled, :global_rating, :poutine_category_id, :service_rating, :fries_rating, :cheese_rating, :sauce_rating, :title, :body, :restaurant_id, photos: [])
   end
 
   def review_edit_params

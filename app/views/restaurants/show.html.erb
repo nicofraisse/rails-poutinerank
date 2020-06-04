@@ -62,7 +62,7 @@
             <div class="card-review">
               <div class="container-md">
               <div class="row justify-content-center">
-              <div class="col-3 col-md-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
+              <div data-id=<%= review.id %> class="col-3 col-md-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">
                 <div>
                   <% if review.user.photo.attached? %>
                     <%= cl_image_tag review.user.photo.key, class: "img-circle" %>
@@ -81,6 +81,7 @@
                     <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
                       <%= simple_form_for(review, remote: true) do |f| %>
                         <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
+                        <%= f.hidden_field :up_enabled, value: 'true', id: 'upEnabled-' + review.id.to_s %>
                         <%= button_tag :submit,
                         class: "btn-vote btn-upvote",
                         name: "vote_type",
@@ -91,6 +92,7 @@
                       <% end %>
                       <span class="no-upvotes"><%= review.upvotes %></span>
                       <%= simple_form_for(review, remote: true) do |f| %>
+                        <%= f.hidden_field :down_enabled, value: 'true', id: 'downEnabled-' + review.id.to_s %>
                         <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
                         <%= button_tag :submit,
                         class: "btn-vote btn-downvote",
