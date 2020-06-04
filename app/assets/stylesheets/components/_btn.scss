@@ -143,6 +143,9 @@
     color: white;
     opacity: 1 !important;
   }
+  &:focus {
+    box-shadow: none;
+  }
 }
 
 @media (max-width: $MD) {

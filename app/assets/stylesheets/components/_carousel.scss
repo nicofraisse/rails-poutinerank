@@ -4,6 +4,7 @@
 */
 @media (min-width: 768px) {
     /* Show 4th slide on md if col-md-4*/
+  .home {
     .carousel-inner .active.col-md-4.carousel-item + .carousel-item + .carousel-item + .carousel-item {
         position: absolute;
         top: 0;
@@ -12,9 +13,11 @@
         display: block;
         visibility: visible;
     }
+  }
 }
 @media (min-width: 576px) and (max-width: 768px) {
     /* Show 3rd slide on sm if col-sm-6*/
+  .home {
     .carousel-inner .active.col-sm-6.carousel-item + .carousel-item + .carousel-item {
         position: absolute;
         top: 0;
@@ -23,8 +26,10 @@
         display: block;
         visibility: visible;
     }
+  }
 }
 @media (min-width: 576px) {
+  .home {
     .carousel-item {
         margin-right: 0;
     }
@@ -67,9 +72,12 @@
         display: block;
         visibility: visible;
     }
+
+  }
 }
 /* MD */
 @media (min-width: 768px) {
+  .home {
     /* show 3rd of 3 item slide */
     .carousel-inner .active + .carousel-item + .carousel-item {
         display: block;
@@ -95,8 +103,11 @@
         display: block;
         visibility: visible;
     }
+  }
 }
-
-.carousel-img {
+.home {
+  .carousel-img {
   border-radius: 4px;
 }
+}
+
