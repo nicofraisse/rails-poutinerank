@@ -121,6 +121,7 @@
                 <div>
                   <%= review.user.reviews.count %> avis
                 </div>
+
                 <div class="upvote-section">
                   <% unless review.user == current_user %>
                     <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
@@ -149,8 +150,8 @@
                       <% end %>
                     </div>
                   <% end %>
-
                   </div>
+
                 </div>
                   <div class="col-9 col-md-10 card-review-body">
                     <h3>

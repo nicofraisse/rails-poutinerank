@@ -29,7 +29,7 @@ class RestaurantsController < ApplicationController
     authorize @restaurant
     @review = Review.new
     @reviews = @restaurant.reviews.sort_by{|r| r.upvotes}.reverse if @restaurant.reviews
-    @restaurant_global_rating = @restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f.round(1) if @restaurant.reviews
+    @restaurant_global_rating = (@restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f).round(1) if @restaurant.reviews
     @markers = [@restaurant].map do |restaurant|
       {
         lat: restaurant.latitude,
