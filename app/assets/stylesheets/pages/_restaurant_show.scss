@@ -5,4 +5,9 @@
   .modal-content, .modal-body {
     padding: 0.5rem !important;
   }
+  .carousel-item img {
+    height: 55vw;
+    object-fit: cover;
+    max-height: 480px;
+  }
 }

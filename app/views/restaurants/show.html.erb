@@ -9,7 +9,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleControls" class="carousel slide" interval="false" data-ride="carousel">
               <div class="carousel-inner">
                 <% @restaurant.reviews.map{ |r| r.photos }.flatten.each_with_index do |photo, i| %>
                   <div class="carousel-item <%= 'active' if i == 0 %>">
@@ -69,7 +69,19 @@
           <h2>Avis (<%= @restaurant.reviews.count %>)</h2>
           <% unless @restaurant.reviews.blank? %>
             <p class="text-secondary mt-3">Moyenne:
-              <span class='global-rating'><%= (@restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f).round(1) %>/10</span class='global-rating'>
+
+              <span
+              class='global-rating'
+              style='background-color:
+                <% if @restaurant_global_rating < 5 %>
+                  <%= "red" %>
+                <% elsif @restaurant_global_rating < 7 %>
+                  <%= 'orange' %>
+                <% else %>
+                  <%= 'green' %>
+                <% end %>
+              '><%= @restaurant_global_rating %>/10</span>
+
               <span class="text-secondary">Frites <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
               <span class="text-secondary">Fromage <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
               <span class="text-secondary">Sauce <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
@@ -142,7 +154,19 @@
                 </div>
                   <div class="col-9 col-md-10 card-review-body">
                     <h3>
-                      <span class='global-rating'><%= review.global_rating %>/10</span class='global-rating'>
+
+                      <span
+                      class='global-rating'
+                      style='background-color:
+                        <% if review.global_rating < 5 %>
+                          <%= "red" %>
+                        <% elsif review.global_rating < 7 %>
+                          <%= 'orange' %>
+                        <% else %>
+                          <%= 'green' %>
+                        <% end %>
+                      '><%= review.global_rating %>/10</span>
+
                       <%= review.title %>
                     </h3>
                     <p class="my-3">
@@ -170,7 +194,6 @@
                       <% else %>
                         <span><%= review.body %></span>
                       <% end %>
-
                     </p>
 
                     <% if review.photos.count.odd?%>
