@@ -123,7 +123,7 @@
                 </div>
 
                 <div class="upvote-section">
-                  <% unless review.user == current_user %>
+
                     <div class="form-review-upvotes" id="upvotes-<%= review.id %>">
                       <%= simple_form_for(review, remote: true) do |f| %>
                         <%= f.input :irrelevant, collection: (1..1).to_a, selected: 1, input_html: {class:"d-none hidden"} %>
@@ -149,7 +149,7 @@
                         <% end %>
                       <% end %>
                     </div>
-                  <% end %>
+
                   </div>
 
                 </div>
