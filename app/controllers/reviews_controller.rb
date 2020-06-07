@@ -1,4 +1,12 @@
 class ReviewsController < ApplicationController
+  skip_before_action :authenticate_user!, :only => :update, :if => lambda {
+    if params['vote_type']
+      true
+    else
+      false
+    end
+  }
+
   def new
     @review = Review.new
     authorize @review
@@ -33,6 +41,7 @@ class ReviewsController < ApplicationController
     authorize @review
 
     if @review.update(review_edit_params)
+
       if params[:vote_type] == "upvote" && @review.user != current_user
         if params[:review]["up_enabled"] == "true"
           @review.increment!(:upvotes)
