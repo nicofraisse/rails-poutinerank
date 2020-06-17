@@ -25,7 +25,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.friendly.find(params[:id])
     authorize @restaurant
     @review = Review.new
     @reviews = @restaurant.reviews.sort_by{|r| r.upvotes}.reverse if @restaurant.reviews
@@ -61,12 +61,12 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.friendly.find(params[:id])
     authorize @restaurant
   end
 
   def update
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.friendly.find(params[:id])
     authorize @restaurant
     @restaurant.json_address = Geocoder.search(restaurant_address_params['address']).first if @restaurant.json_address.nil?
     @restaurant.save
@@ -75,7 +75,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.friendly.find(params[:id])
     authorize @restaurant
     @restaurant.destroy
     redirect_to root_path

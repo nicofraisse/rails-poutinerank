@@ -10,14 +10,14 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     authorize @review
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.friendly.find(params[:restaurant_id])
   end
 
   def create
     @review = Review.new(review_create_params)
     @review.update(upvotes: 0)
     authorize @review
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.friendly.find(params[:restaurant_id])
     @review.restaurant = @restaurant
     @review.user = current_user
     if @review.save
@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     authorize @review
 
-    @restaurant = Restaurant.find(@review.restaurant_id)
+    @restaurant = Restaurant.friendly.find(@review.restaurant_id)
     authorize @restaurant
   end
 
@@ -70,7 +70,7 @@ class ReviewsController < ApplicationController
         redirect_to restaurant_path(@review.restaurant_id, anchor: "review-#{@review.id}")
       end
     else
-      @restaurant = Restaurant.find(@review.restaurant_id)
+      @restaurant = Restaurant.friendly.find(@review.restaurant_id)
       render :edit
     end
   end
