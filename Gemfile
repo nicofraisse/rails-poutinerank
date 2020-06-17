@@ -20,6 +20,7 @@ gem 'webpacker'
 gem 'geocoder'
 gem 'pg_search', '~> 2.3.0'
 gem 'cloudinary', '~> 1.12.0'
+gem 'friendly_id'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

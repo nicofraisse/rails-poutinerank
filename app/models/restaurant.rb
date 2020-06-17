@@ -1,4 +1,7 @@
 class Restaurant < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   include PgSearch
     pg_search_scope :global_search,
       against: [ :name , :address],
