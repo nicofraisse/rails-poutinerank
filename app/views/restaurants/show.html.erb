@@ -38,10 +38,33 @@
       <% @restaurant.reviews.map{ |r| r.photos.all }.flatten.take(3).each do |photo| %>
         <%= cl_image_tag photo.key, crop: :fill %>
       <% end %>
+    <% elsif @restaurant.reviews.map{ |r| r.photos.all }.flatten.count == 2 %>
+      <% @restaurant.reviews.map{ |r| r.photos.all }.flatten.take(3).each do |photo| %>
+        <%= cl_image_tag photo.key, crop: :fill %>
+      <% end %>
+      <div class="banner-placeholder">
+        <%= image_tag 'poutine_placeholder.png' %>
+      </div>
+    <% elsif @restaurant.reviews.map{ |r| r.photos.all }.flatten.count == 1 %>
+      <% @restaurant.reviews.map{ |r| r.photos.all }.flatten.take(3).each do |photo| %>
+        <%= cl_image_tag photo.key, crop: :fill %>
+      <% end %>
+      <div class="banner-placeholder">
+        <%= image_tag 'poutine_placeholder.png' %>
+      </div>
+      <div class="banner-placeholder">
+        <%= image_tag 'poutine_placeholder.png' %>
+      </div>
     <% else %>
-      <div style="height: 22vw; width: 100%; background-color: rgb(200, 200, 200); border: 1px solid white; text-align: center">PLACEHOLDER</div>
-      <div style="height: 22vw; width: 100%; background-color: rgb(200, 200, 200); border: 1px solid white; text-align: center">PLACEHOLDER</div>
-      <div style="height: 22vw; width: 100%; background-color: rgb(200, 200, 200); border: 1px solid white; text-align: center">PLACEHOLDER</div>
+      <div class="banner-placeholder">
+        <%= image_tag 'poutine_placeholder.png' %>
+      </div>
+      <div class="banner-placeholder">
+        <%= image_tag 'poutine_placeholder.png' %>
+      </div>
+      <div class="banner-placeholder">
+        <%= image_tag 'poutine_placeholder.png' %>
+      </div>
     <% end %>
   </div>
   <div class="container-md">

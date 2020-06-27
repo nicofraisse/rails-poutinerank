@@ -16,3 +16,10 @@
 
 # Version 2
 * SEO
+
+-----------
+
+# Toto in pages
+
+## /restaurants/show
+* banner images- top of page: If less than 3 review images, show restaurant image. Restaurant image must show the frontage of the restaurant.
