@@ -1,0 +1,42 @@
+<h1 class="text-center">Search restaurants</h1>
+
+<div class="d-flex">
+
+  <div class="search-filters p-3 border-right">
+      <%= form_with(url: "/search", method: "get") do %>
+        <div class="form-inline">
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Entrer quelque chose..."
+          %>
+        <%= submit_tag "Rechercher", class: "btn btn-main-action" %>
+        </div>
+        <div>
+        <%= label_tag(:prix, "- de 6$") %>
+        <%= check_box_tag 'p1', 'yes', true %>
+        </div>
+        <div>
+        <%= label_tag(:prix, "6$ - 9$") %>
+        <%= check_box_tag 'p2', 'yes', true %>
+        <div>
+        </div>
+        <%= label_tag(:prix, "plus de 9$") %>
+        <%= check_box_tag 'p3', 'yes', true %>
+        </div>
+
+        <%= range_field(:product, :discount, in: 1..100) %>
+      <% end %>
+  </div>
+
+  <div class="search-results p-3">
+    <% @restaurants.each do |restaurant| %>
+      <div class="my-3 border-bottom">
+        <h2><%= restaurant.name %></h2>
+        <p><%= restaurant.address %></p>
+        <p><%= restaurant.poutine_price.round(2) %> $</p>
+      </div>
+    <% end %>
+  </div>
+
+</div>

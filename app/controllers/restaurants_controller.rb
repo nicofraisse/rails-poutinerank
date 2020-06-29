@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
-  skip_after_action :verify_policy_scoped, :only => [:index, :show]
-  skip_before_action :authenticate_user!, :only => [:index, :show]
+  skip_after_action :verify_policy_scoped, :only => [:index, :show, :search]
+  skip_before_action :authenticate_user!, :only => [:index, :show, :search]
+
   def index
     if params[:query].present?
       @restaurants = Restaurant.global_search(params[:query])
@@ -22,6 +23,28 @@ class RestaurantsController < ApplicationController
         infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
       }
     end
+  end
+
+  def search
+    # Restaurant.reindex
+    # Restaurant.search(params[:query])
+    Restaurant.reindex
+    query = params[:query].presence || '*'
+
+
+    p1 = params[:p1].present? ? [0, 6] : nil
+    p2 = params[:p2].present? ? [6, 9] : nil
+    p3 = params[:p3].present? ? [9, 1000] : nil
+    range_creator = [p1, p2, p3].select{ |list| list != nil }.flatten
+    range = range_creator.min()..range_creator.max()
+    conditions = {
+      poutine_price: range
+    }
+    # condition[:price] = params[:price]
+
+    @restaurants = Restaurant.search query, where: conditions
+
+    authorize @restaurants
   end
 
   def show
@@ -93,6 +116,10 @@ class RestaurantsController < ApplicationController
 
   def zero_if_nan(x)
     x.class == Integer || x.class == Float ? x : 0
+  end
+
+  def search_params
+    params.require(:restaurant).permit(:name)
   end
 
   helper_method :zero_if_nan
