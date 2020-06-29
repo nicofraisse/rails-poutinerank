@@ -49,7 +49,7 @@ $(document).on('turbolinks:load', function () {
       console.log(idx, itemsPerSlide, totalItems)
       if (idx >= totalItems - (itemsPerSlide - 1)) {
         var it = itemsPerSlide - (totalItems - idx);
-        for (var j=0; j< it ; j++) {
+        for (var j=0; j < it ; j++) {
           // append slides to end
           if (e.direction == "left") {
             $(`.ci-${i}`).eq(j).appendTo(`.c-${i}`);
