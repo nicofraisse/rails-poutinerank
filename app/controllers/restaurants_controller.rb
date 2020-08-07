@@ -26,11 +26,8 @@ class RestaurantsController < ApplicationController
   end
 
   def search
-    # Restaurant.reindex
-    # Restaurant.search(params[:query])
     Restaurant.reindex
     query = params[:query].presence || '*'
-
 
     p1 = params[:p1].present? ? [0, 6] : nil
     p2 = params[:p2].present? ? [6, 9] : nil
@@ -40,11 +37,12 @@ class RestaurantsController < ApplicationController
     conditions = {
       poutine_price: range
     }
-    # condition[:price] = params[:price]
-
+    # conditions[:price] = params[:price]
+    # raise
     @restaurants = Restaurant.search query, where: conditions
-
     authorize @restaurants
+    # raise
+
   end
 
   def show

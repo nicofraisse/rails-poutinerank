@@ -1,16 +1,5 @@
 class Restaurant < ApplicationRecord
   searchkick
-  # Restaurant.reindex
-  # include PgSearch
-  #     pg_search_scope :global_search,
-  #       against: [ :name , :address],
-  #       associated_against: {
-  #         restaurant_category: [:name],
-  #       },
-  #       using: {
-  #         tsearch: { prefix: true } # < now `superman batm` will return somethi
-  #       }
-
 
   has_many :reviews, dependent: :destroy
   belongs_to :restaurant_category

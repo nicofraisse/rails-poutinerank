@@ -10,19 +10,19 @@
             class: "form-control",
             placeholder: "Entrer quelque chose..."
           %>
-        <%= submit_tag "Rechercher", class: "btn btn-main-action" %>
+          <%= submit_tag "Rechercher", class: "btn btn-main-action" %>
         </div>
         <div>
-        <%= label_tag(:prix, "- de 6$") %>
-        <%= check_box_tag 'p1', 'yes', true %>
+          <%= label_tag(:prix, "- de 6$") %>
+          <%= check_box_tag 'p1', 'yes', true %>
         </div>
         <div>
-        <%= label_tag(:prix, "6$ - 9$") %>
-        <%= check_box_tag 'p2', 'yes', true %>
+          <%= label_tag(:prix, "6$ - 9$") %>
+          <%= check_box_tag 'p2', 'yes', true %>
         <div>
         </div>
-        <%= label_tag(:prix, "plus de 9$") %>
-        <%= check_box_tag 'p3', 'yes', true %>
+          <%= label_tag(:prix, "plus de 9$") %>
+          <%= check_box_tag 'p3', 'yes', true %>
         </div>
 
         <%= range_field(:product, :discount, in: 1..100) %>
