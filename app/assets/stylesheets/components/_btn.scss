@@ -148,12 +148,18 @@
   }
 }
 
+.btn-onimage-mobile {
+  display: none;
+}
+
+
 @media (max-width: $MD) {
   .btn-onimage {
+    font-size: 15px;
     left: auto;
     top: auto;
-    right: 32px;
-    bottom: -64px;
+    right: 16px;
+    bottom: -52px;
     z-index: 20000;
     transform: translate(0, 0);
     opacity: 0.85;
@@ -165,4 +171,37 @@
   }
 }
 
+@media (max-width: $MD) {
+  .btn-onimage {
+    font-size: 15px;
+    left: auto;
+    top: auto;
+    right: 16px;
+    bottom: -52px;
+    z-index: 20000;
+    transform: translate(0, 0);
+    opacity: 0.85;
+    color: black;
+    border: 1px solid black;
+    &:hover {
+      color: black;
+    }
+  }
+}
 
+@media (max-width: 450px) {
+  .btn-onimage {
+    display: none;
+  }
+  .btn-onimage-mobile {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    transition: 0.15s;
+    &:hover {
+      background-color: white;
+    }
+  }
+}

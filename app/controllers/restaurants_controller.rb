@@ -37,12 +37,9 @@ class RestaurantsController < ApplicationController
     conditions = {
       poutine_price: range
     }
-    # conditions[:price] = params[:price]
-    # raise
+
     @restaurants = Restaurant.search query, where: conditions
     authorize @restaurants
-    # raise
-
   end
 
   def show
@@ -61,6 +58,22 @@ class RestaurantsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: { upvotes: @restaurant.reviews.first.upvotes } }
+    end
+
+    if @restaurant.poutine_price < 6
+      @price_symbol = '$'
+    elsif @restaurant.poutine_price < 10
+      @price_symbol = '$$'
+    else
+      @price_symbol = '$$$'
+    end
+
+    unless @restaurant.json_address.nil?
+      if @restaurant.json_address['data']['address']['city'].nil?
+        @restaurant_city = @restaurant.json_address['data']['address']['municipality']
+      else
+        @restaurant_city = @restaurant.json_address['data']['address']['city']
+      end
     end
   end
 

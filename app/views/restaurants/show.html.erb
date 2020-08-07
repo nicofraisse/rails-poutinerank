@@ -4,6 +4,9 @@
     <button type="button" class="btn btn-onimage" data-toggle="modal" data-target="#exampleModalCenter">
       <i class="fas fa-camera"></i> Toutes les photos
     </button>
+    <button type="button" class="btn btn-onimage-mobile" data-toggle="modal" data-target="#exampleModalCenter">
+      <i class="fas fa-camera"></i>
+    </button>
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -70,22 +73,23 @@
   <div class="container-md">
     <div class="card-parallax">
       <h1><%= @restaurant.name %></h1>
-      <div><%= @restaurant.address %></div>
-      <span><%= @restaurant.restaurant_category.name %></span> -
-      <span><%= @restaurant.poutine_price %> $ (poutine classique)</span><br>
+      <span class="mr-2"><%= @restaurant.restaurant_category.name %> à <%= @restaurant_city %></span> • <span class="mx-2"><%= @price_symbol %></span> • <span class="mx-2"><%= @restaurant_global_rating %>/10 (<%= @restaurant.reviews.count %> avis)</span><br>
       <% if @restaurant.user == current_user %>
         <div>
           <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_restaurant_path(@restaurant) %>
           <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
         </div>
       <% end %>
+      <div class="card-parallax-rank">
+        #34 sur 219 poutineries
+      </div>
     </div>
   </div>
 </div>
 
 
 <div class="container mt-4">
-  <div class="row">
+  <div class="row flex-row-reverse">
     <div class="col-12 col-lg-9">
       <div class="review-container">
         <div class="pl-4 border-bottom">

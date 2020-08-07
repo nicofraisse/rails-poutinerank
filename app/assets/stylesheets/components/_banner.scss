@@ -65,15 +65,21 @@
   background: white;
   margin: -40px auto 0 auto;
   z-index: 400;
-  position: absolute;
-  outline: 8px solid rgba(247, 216, 170, 1.00);
-  padding: 32px;
   position: relative;
-  width: 75%;
+  outline: 8px solid rgba(247, 216, 170, 1.00);
+  padding: 24px;
+  position: relative;
+  width: 70%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   .btn {
     position: absolute;
     right: 16px;
     bottom: 16px;
+  }
+  .card-parallax-rank {
+    position: absolute;
+    top: 24px;
+    right: 24px;
   }
 }
 
@@ -93,6 +99,9 @@
     padding: 16px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     outline: none;
+    .card-parallax-rank {
+      position: static;
+    }
   }
 }
 
