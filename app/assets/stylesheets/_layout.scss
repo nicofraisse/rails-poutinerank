@@ -5,11 +5,11 @@ $XL: 1200px;
 
 
 body {
-  p {
-    font-size: 13px;
+  p, a, button, span, div {
+    font-size: 14px;
   }
   h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
   h2 {
@@ -27,7 +27,7 @@ body {
 
 @media (min-width: $SM) {
   body {
-    p {
+    p, a, button, span, div  {
       font-size: 14px;
     }
   }
@@ -46,7 +46,7 @@ body {
 
 @media (min-width: $XL) {
   body {
-    p {
+    p, a, button, span, div  {
       font-size: 15px;
     }
     h1 {
