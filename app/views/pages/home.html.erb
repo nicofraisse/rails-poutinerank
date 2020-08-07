@@ -1,8 +1,8 @@
 <div class="main-banner">
   <h1 class="text-white text-center mt-5">Poutine Podium</h1>
   <p class="text-white text-center">Le site des connaisseurs de poutine.</p>
-  <form class="form-inline d-flex justify-content-center">
-    <input type="text" class="form-control w-50">
+  <form action="/search" class="form-inline d-flex justify-content-center">
+    <input type="text" class="form-control w-50" placeholder="Entrer une poutine, une ville...">
     <button type="submit" class="btn btn-main-action">Trouver une poutinerie</button>
   </form>
   <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row my-4">
@@ -40,9 +40,20 @@
             <td colspan="12">
               <div class="collapse" id="collapse-<%= i %>">
                 <div class="p-2">
-                  <div>Catégorie: <%= restaurant.restaurant_category.name %></div>
-                  <div>Prix de la poutine classique: <%= restaurant.poutine_price %> $ (avant taxes)</div>
-                  <div>Addresse: <%= restaurant.address %></div>
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <div class='misc-rating'>Frites: <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * 5 %></div>
+                      <div class='misc-rating'>Sauce: <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * 4 %></div>
+                      <div class='misc-rating'>Fromage: <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * 3 %></div>
+                      <div class='misc-rating'>Service: <%= '<i class="fa fa-star" aria-hidden="true"></i>'.html_safe * 5 %></div>
+                    </div>
+                    <div>
+                      <div class='misc-rating'>Nombre d'avis: <%= restaurant.reviews.count %></div>
+                      <div>Catégorie: <%= restaurant.restaurant_category.name %></div>
+                      <div>Prix de la poutine classique: <%= restaurant.poutine_price %> $</div>
+                      <div>Addresse: <%= restaurant.address %></div>
+                    </div>
+                  </div>
 
                   <div class="container-fluid my-3">
                     <div id="carousel-example-<%= i %>" class="carousel carousel-<%= i %> slide" data-interval="false" data-ride="carousel-example-<%= i %>">
@@ -73,9 +84,18 @@
         <% end %>
       </table>
     </div>
-    <div class="col-12 col-xl-4 border p-5 mt-4 h-100">
-      <h2>Latest reviews / Battle of the poutines / etc.</h2>
-      <p>Community stuff</p>
+    <div class="col-12 col-xl-4 mt-5 h-100">
+      <div class="border m-3 p-4">
+        <h2>Derniers avis</h2>
+          <% Review.all.last(4).reverse.each do |review| %>
+            <div class="card-review-small p-2 mb-3 border-bottom">
+              <div><strong><%= review.restaurant.name %></strong>, par <%= review.user.first_name %>, </div>
+              <p><%= truncate(review.body, :length => 200, :separator => '...') %></p>
+              <%= link_to "voir l'avis complet", restaurant_path(review.restaurant) %>
+            </div>
+          <% end %>
+        <p>Community stuff</p>
+      </div>
     </div>
   </div>
 </div>
