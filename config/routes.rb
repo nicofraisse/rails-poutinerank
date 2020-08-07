@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
   resources :reviews, except: [:index, :new, :create]
   resources :users, only: [:show]
+  get '/search', to: 'restaurants#search'
 end

@@ -25,4 +25,8 @@ class RestaurantPolicy < ApplicationPolicy
   def destroy?
     true
   end
+
+  def search?
+    true
+  end
 end
