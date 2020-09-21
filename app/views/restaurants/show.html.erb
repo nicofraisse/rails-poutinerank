@@ -131,7 +131,7 @@
           <p>Sois la première personne à donner ton opinion sur leur poutine!</p>
         <% else %>
           <% @reviews.each do |review| %>
-            <div class="card-review">
+            <div class="card-review" id=<%= review.id %>>
               <div class="container-md">
               <div class="row justify-content-center">
               <div data-id=<%= review.id %> class="col-3 col-md-2 card-review-info text-center <%= "card-review-info-personal" unless review.user == current_user %>">

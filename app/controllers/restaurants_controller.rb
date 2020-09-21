@@ -40,6 +40,14 @@ class RestaurantsController < ApplicationController
 
     @restaurants = Restaurant.search query, where: conditions
     authorize @restaurants
+
+    @markers = @restaurants.map do |restaurant|
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
+        infoWindow: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant })
+      }
+    end
   end
 
   def show
@@ -47,7 +55,7 @@ class RestaurantsController < ApplicationController
     authorize @restaurant
     @review = Review.new
     @reviews = @restaurant.reviews.sort_by{|r| r.upvotes}.reverse if @restaurant.reviews
-    @restaurant_global_rating = (@restaurant.reviews.map{|r| r.global_rating}.sum / @restaurant.reviews.count.to_f).round(1) if @restaurant.reviews
+    @restaurant_global_rating = avg_global_rating(@restaurant)
     @markers = [@restaurant].map do |restaurant|
       {
         lat: restaurant.latitude,
@@ -133,5 +141,13 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:name)
   end
 
+  def avg_global_rating(restaurant)
+    if restaurant.reviews
+      (restaurant.reviews.map{|r| r.global_rating}.sum / restaurant.reviews.count.to_f).round(1)
+    else
+      "No ratings yet"
+    end
+  end
+  helper_method :avg_global_rating
   helper_method :zero_if_nan
 end

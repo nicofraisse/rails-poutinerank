@@ -1,6 +1,6 @@
 <h1 class="text-center">Search restaurants</h1>
 
-<div class="d-flex">
+<div class="d-flex w-100">
 
   <div class="search-filters p-3 border-right">
       <%= form_with(url: "/search", method: "get") do %>
@@ -31,12 +31,23 @@
 
   <div class="search-results p-3">
     <% @restaurants.each do |restaurant| %>
-      <div class="my-3 border-bottom">
-        <h2><%= restaurant.name %></h2>
-        <p><%= restaurant.address %></p>
-        <p><%= restaurant.poutine_price.round(2) %> $</p>
-      </div>
+      <%= link_to restaurant_path(restaurant) do %>
+        <div class="my-3 border-bottom">
+          <h2><%= restaurant.name %></h2>
+          <p><%= restaurant.address %></p>
+          <p><%= restaurant.restaurant_category.name %></p>
+          <p><%= restaurant.poutine_price.round(2) %> $</p>
+          <p><%= avg_global_rating(restaurant) %>/10</p>
+          <% if restaurant.photo.attached? %>
+            <%= cl_image_tag restaurant.photo.key, class: "img-circle" %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
-
+  <div id="map"
+       style="height: 100vh; width: 30vw; position: sticky; top: 0; right: 0;"
+       data-markers="<%= @markers.to_json %>"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>

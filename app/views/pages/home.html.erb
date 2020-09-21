@@ -1,10 +1,18 @@
 <div class="main-banner">
   <h1 class="text-white text-center mt-5">Poutine Podium</h1>
   <p class="text-white text-center">Le site des connaisseurs de poutine.</p>
-  <form action="/search" class="form-inline d-flex justify-content-center">
-    <input type="text" class="form-control w-50" placeholder="Entrer une poutine, une ville...">
-    <button type="submit" class="btn btn-main-action">Trouver une poutinerie</button>
-  </form>
+
+  <%= form_with(url: "/search", method: "get") do %>
+    <div class="form-inline d-flex justify-content-center">
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control w-50",
+        placeholder: "Entrer une poutine, une ville..."
+      %>
+      <%= submit_tag "Trouver une poutinerie", class: "btn btn-main-action" %>
+    </div>
+  <% end %>
+
   <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row my-4">
   </div>
 </div>
@@ -91,7 +99,7 @@
             <div class="card-review-small p-2 mb-3 border-bottom">
               <div><strong><%= review.restaurant.name %></strong>, par <%= review.user.first_name %>, </div>
               <p><%= truncate(review.body, :length => 200, :separator => '...') %></p>
-              <%= link_to "voir l'avis complet", restaurant_path(review.restaurant) %>
+              <%= link_to "lire l'avis complet", restaurant_path(review.restaurant) + '#' + review.id.to_s %>
             </div>
           <% end %>
         <p>Community stuff</p>
@@ -99,7 +107,3 @@
     </div>
   </div>
 </div>
-
-
-
-
