@@ -1,1 +1,17 @@
-<h1><%= current_user %></h1>
+<div class="user-profile-banner">
+  <% if @user.photo.attached? %>
+    <%= cl_image_tag current_user.photo.key %>
+  <% end %>
+  <div class="user-profile-banner-info">
+    <h1><%= @user.first_name %><%= @user.last_name %></h1>
+    <h2>Membre depuis <%= @user.created_at %></h2>
+  </div>
+</div>
+<div class="user-poutines-container">
+  <div class="user-bookmarked-poutines">
+
+  </div>
+  <div class="user-rated-poutines">
+
+  </div>
+</div>

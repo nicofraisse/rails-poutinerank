@@ -1,0 +1,14 @@
+.user-poutines-container {
+  min-height: 100vh;
+  display: flex;
+}
+
+.user-bookmarked-poutines {
+  background-color: rgba(0, 0, 0, 0.1);
+  flex-grow: 1
+}
+
+.user-rated-poutines {
+  background-color: rgba(0, 0, 0, 0.05);
+  flex-grow: 1;
+}
