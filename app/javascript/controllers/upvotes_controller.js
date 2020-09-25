@@ -12,7 +12,6 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(this.countTarget.innerText);
         this.countTarget.innerText++;
       });
   }
