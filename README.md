@@ -1,25 +1,27 @@
-# Todo before Version 1
-* User dashboard & public page
-* Mobile Responsiveness
-* Restaurant show page: menu, phone, website, etc. from Tripadvisor API
-* Friendly-url
-* Error pages (404, 422, 500)
-* Fun animations
-* Accomodate controllers for franchises
-* Restaurant index/search page (filter sidebar)
-* Footer & Navbar design
+# Roadmap
 
-# Version 1
-* i18 translation
-* Logo
-* Visual identity (color)
+## Pre-Version 1
+- User dashboard and public page
+- Mobile responsiveness
+- Restaurant page: menu, contact info, website (Tripadvisor API)
+- URL optimization
+- Error pages (404, 422, 500)
+- Animations
+- Franchise controller support
+- Restaurant search page with filters
+- Design: footer and navbar
 
-# Version 2
-* SEO
+## Version 1
+- Internationalization (i18n)
+- Logo design
+- Color scheme
 
------------
+## Version 2
+- SEO optimization
 
-# Todo in pages
+## Page-Specific Tasks
 
-## /restaurants/show
-* banner images- top of page: If less than 3 review images, show restaurant image. Restaurant image must show the frontage of the restaurant.
+### Restaurant Show Page
+- Banner images:
+  - Use review images (if 3+ available)
+  - Fallback to restaurant frontage image
